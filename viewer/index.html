@@ -150,6 +150,73 @@
     font-size: 12px;
     padding: 20px;
   }
+  .filter-row select {
+    flex: 1;
+    min-width: 110px;
+  }
+  .filter-info {
+    font-size: 12px;
+    color: var(--muted);
+    margin: 4px 2px 0;
+  }
+  .filter-info button {
+    background: none;
+    border: none;
+    color: var(--accent);
+    padding: 0;
+    font-size: 12px;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  .list-container {
+    display: none;
+  }
+  .list-container.show { display: block; }
+  .study-container.hide { display: none; }
+  .list-item {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px;
+    margin-bottom: 8px;
+    cursor: pointer;
+  }
+  .list-item:active { background: #f0f4fa; }
+  .list-item-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 4px;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .list-item-top .badge {
+    background: var(--answer-bg);
+    color: var(--accent-dark);
+    border-radius: 5px;
+    padding: 1px 6px;
+    font-size: 11px;
+  }
+  .list-item-top .seen-mark {
+    color: var(--ok);
+    font-weight: 600;
+  }
+  .list-item-text {
+    font-size: 14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+  .empty-msg {
+    text-align: center;
+    color: var(--muted);
+    padding: 30px;
+    font-size: 14px;
+  }
   @media (max-width: 480px) {
     .qtext { font-size: 15px; }
   }
@@ -161,9 +228,15 @@
   <h1>応用情報技術者試験 午前問題ビューア</h1>
   <div class="controls">
     <select id="periodSelect"></select>
+    <button id="listToggleBtn" class="secondary" title="一覧表示に切り替え">📋 一覧</button>
     <button id="shuffleBtn" class="secondary" title="この期をシャッフルして最初から">🔀 シャッフル</button>
     <button id="resetBtn" class="secondary" title="正答率をリセット">↺ 記録リセット</button>
   </div>
+  <div class="controls filter-row" style="margin-top:8px;">
+    <select id="categorySelect"></select>
+    <select id="tagSelect"></select>
+  </div>
+  <div class="filter-info" id="filterInfo"></div>
 </header>
 
 <main>
@@ -172,25 +245,30 @@
     <span id="scoreText"></span>
   </div>
 
-  <div class="card">
-    <div class="meta" id="meta"></div>
-    <div class="qtext" id="qtext"></div>
-    <div class="images" id="images"></div>
+  <div class="study-container" id="studyContainer">
+    <div class="card">
+      <div class="empty-msg" id="emptyMsg" style="display:none;">条件に一致する問題がありません。フィルタを変更してください。</div>
+      <div class="meta" id="meta"></div>
+      <div class="qtext" id="qtext"></div>
+      <div class="images" id="images"></div>
 
-    <button class="reveal-btn" id="revealBtn">解答を見る</button>
-    <div class="answer-box" id="answerBox"></div>
+      <button class="reveal-btn" id="revealBtn">解答を見る</button>
+      <div class="answer-box" id="answerBox"></div>
+    </div>
+
+    <div class="nav-row">
+      <button class="secondary" id="prevBtn">← 前の問題</button>
+      <button class="secondary" id="nextBtn">次の問題 →</button>
+    </div>
+
+    <div class="jump-row">
+      <span>問題番号にジャンプ:</span>
+      <input type="number" id="jumpInput" min="1" max="80">
+      <button class="secondary" id="jumpBtn">移動</button>
+    </div>
   </div>
 
-  <div class="nav-row">
-    <button class="secondary" id="prevBtn">← 前の問題</button>
-    <button class="secondary" id="nextBtn">次の問題 →</button>
-  </div>
-
-  <div class="jump-row">
-    <span>問題番号にジャンプ:</span>
-    <input type="number" id="jumpInput" min="1" max="80">
-    <button class="secondary" id="jumpBtn">移動</button>
-  </div>
+  <div class="list-container" id="listContainer"></div>
 </main>
 
 <footer>全21期 1680問収録</footer>
@@ -199,8 +277,11 @@
 <script>
   const state = {
     periodIndex: 0,
-    order: [],   // array of question indices within current period, defines display order
+    order: [],   // array of question indices within current period, defines display order (post-filter)
     pos: 0,      // position within order
+    category: 'all',
+    tag: 'all',
+    mode: 'study', // 'study' | 'list'
   };
 
   const periodSelect = document.getElementById('periodSelect');
@@ -217,6 +298,35 @@
   const jumpBtn = document.getElementById('jumpBtn');
   const shuffleBtn = document.getElementById('shuffleBtn');
   const resetBtn = document.getElementById('resetBtn');
+  const categorySelect = document.getElementById('categorySelect');
+  const tagSelect = document.getElementById('tagSelect');
+  const filterInfo = document.getElementById('filterInfo');
+  const listToggleBtn = document.getElementById('listToggleBtn');
+  const studyContainer = document.getElementById('studyContainer');
+  const listContainer = document.getElementById('listContainer');
+
+  function splitTags(tagStr) {
+    return (tagStr || '').split(/[,、]/).map(t => t.trim()).filter(Boolean);
+  }
+
+  function matchesFilter(q) {
+    if (state.category !== 'all' && q.category !== state.category) return false;
+    if (state.tag !== 'all' && !splitTags(q.tags).includes(state.tag)) return false;
+    return true;
+  }
+
+  function populateFilters(period) {
+    const categories = [...new Set(period.questions.map(q => q.category).filter(Boolean))].sort();
+    const tags = [...new Set(period.questions.flatMap(q => splitTags(q.tags)))].sort();
+
+    categorySelect.innerHTML = '<option value="all">すべてのカテゴリ</option>' +
+      categories.map(c => `<option value="${c}">${c}</option>`).join('');
+    tagSelect.innerHTML = '<option value="all">すべてのタグ</option>' +
+      tags.map(t => `<option value="${t}">${t}</option>`).join('');
+
+    categorySelect.value = state.category;
+    tagSelect.value = state.tag;
+  }
 
   function storageKey(periodKey) {
     return 'amviewer_seen_' + periodKey;
@@ -252,23 +362,58 @@
       if (found >= 0) idx = found;
     }
     periodSelect.value = idx;
-    setPeriod(idx, false);
+    setPeriod(idx, false, true);
   }
 
-  function setPeriod(idx, shuffle) {
+  function setPeriod(idx, shuffle, resetFilters) {
     state.periodIndex = idx;
     const period = PERIODS[idx];
     localStorage.setItem('amviewer_period', period.key);
-    state.order = period.questions.map((_, i) => i);
+    if (resetFilters) {
+      state.category = 'all';
+      state.tag = 'all';
+    }
+    populateFilters(period);
+    applyFilter(shuffle, !resetFilters);
+  }
+
+  function applyFilter(shuffle, keepPos) {
+    const period = PERIODS[state.periodIndex];
+    state.order = period.questions
+      .map((q, i) => i)
+      .filter(i => matchesFilter(period.questions[i]));
+
     if (shuffle) {
       for (let i = state.order.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [state.order[i], state.order[j]] = [state.order[j], state.order[i]];
       }
     }
-    const savedPos = shuffle ? 0 : parseInt(localStorage.getItem('amviewer_pos_' + period.key) || '0', 10);
-    state.pos = isNaN(savedPos) ? 0 : Math.min(savedPos, state.order.length - 1);
-    render();
+
+    const filterActive = state.category !== 'all' || state.tag !== 'all';
+    filterInfo.innerHTML = filterActive
+      ? `絞り込み中: ${state.order.length}問 <button id="clearFilterBtn">解除</button>`
+      : '';
+    const cf = document.getElementById('clearFilterBtn');
+    if (cf) cf.addEventListener('click', () => {
+      state.category = 'all';
+      state.tag = 'all';
+      categorySelect.value = 'all';
+      tagSelect.value = 'all';
+      applyFilter(false, false);
+    });
+
+    let savedPos = 0;
+    if (keepPos && !shuffle) {
+      savedPos = parseInt(localStorage.getItem('amviewer_pos_' + PERIODS[state.periodIndex].key) || '0', 10);
+    }
+    state.pos = state.order.length === 0 ? 0 : Math.min(isNaN(savedPos) ? 0 : savedPos, state.order.length - 1);
+
+    if (state.mode === 'list') {
+      renderList();
+    } else {
+      render();
+    }
   }
 
   function currentQuestion() {
@@ -278,7 +423,27 @@
   }
 
   function render() {
-    const { period, q } = currentQuestion();
+    const period = PERIODS[state.periodIndex];
+    const emptyMsg = document.getElementById('emptyMsg');
+    const navRow = document.querySelector('.nav-row');
+    const jumpRow = document.querySelector('.jump-row');
+
+    if (state.order.length === 0) {
+      emptyMsg.style.display = 'block';
+      [meta, qtext, imagesEl, revealBtn, answerBox].forEach(el => el.style.display = 'none');
+      navRow.style.display = 'none';
+      jumpRow.style.display = 'none';
+      progressText.textContent = `${period.label} — 0 / 0`;
+      const seen0 = loadSeen(period.key);
+      scoreText.textContent = `既読 ${Object.keys(seen0).length} / ${period.questions.length}`;
+      return;
+    }
+    emptyMsg.style.display = 'none';
+    [meta, qtext, imagesEl, revealBtn].forEach(el => el.style.display = '');
+    navRow.style.display = '';
+    jumpRow.style.display = '';
+
+    const { q } = currentQuestion();
     localStorage.setItem('amviewer_pos_' + period.key, state.pos);
 
     meta.innerHTML = `
@@ -333,6 +498,71 @@
     scoreText.textContent = `既読 ${Object.keys(seen).length} / ${period.questions.length}`;
   }
 
+  function renderList() {
+    const period = PERIODS[state.periodIndex];
+    const seen = loadSeen(period.key);
+
+    if (state.order.length === 0) {
+      listContainer.innerHTML = '<div class="empty-msg">条件に一致する問題がありません。フィルタを変更してください。</div>';
+    } else {
+      listContainer.innerHTML = state.order.map((qIdx, pos) => {
+        const q = period.questions[qIdx];
+        const isSeen = !!seen[q.n];
+        const snippet = (q.question || '').replace(/\s+/g, ' ').slice(0, 70);
+        return `
+          <div class="list-item" data-pos="${pos}">
+            <div class="list-item-top">
+              <span>問${q.n}</span>
+              ${q.category ? `<span class="badge">${q.category}</span>` : ''}
+              <span>難易度${q.difficulty || ''}</span>
+              ${isSeen ? `<span class="seen-mark">✓ 既読（正解:${q.answer || '?'}）</span>` : ''}
+            </div>
+            <div class="list-item-text">${snippet.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div>
+          </div>`;
+      }).join('');
+    }
+
+    progressText.textContent = `${period.label} — 一覧（${state.order.length}問）`;
+    const seenCount = Object.keys(seen).length;
+    scoreText.textContent = `既読 ${seenCount} / ${period.questions.length}`;
+
+    listContainer.querySelectorAll('.list-item').forEach(el => {
+      el.addEventListener('click', () => {
+        state.pos = parseInt(el.dataset.pos, 10);
+        setMode('study');
+      });
+    });
+  }
+
+  function setMode(mode) {
+    state.mode = mode;
+    if (mode === 'list') {
+      studyContainer.classList.add('hide');
+      listContainer.classList.add('show');
+      listToggleBtn.textContent = '📖 学習表示';
+      renderList();
+    } else {
+      studyContainer.classList.remove('hide');
+      listContainer.classList.remove('show');
+      listToggleBtn.textContent = '📋 一覧';
+      render();
+    }
+  }
+
+  listToggleBtn.addEventListener('click', () => {
+    setMode(state.mode === 'list' ? 'study' : 'list');
+  });
+
+  categorySelect.addEventListener('change', () => {
+    state.category = categorySelect.value;
+    applyFilter(false, false);
+  });
+
+  tagSelect.addEventListener('change', () => {
+    state.tag = tagSelect.value;
+    applyFilter(false, false);
+  });
+
   revealBtn.addEventListener('click', showAnswer);
 
   prevBtn.addEventListener('click', () => {
@@ -343,18 +573,19 @@
   });
 
   periodSelect.addEventListener('change', () => {
-    setPeriod(parseInt(periodSelect.value, 10), false);
+    setPeriod(parseInt(periodSelect.value, 10), false, true);
   });
 
   shuffleBtn.addEventListener('click', () => {
-    setPeriod(state.periodIndex, true);
+    applyFilter(true, false);
+    if (state.mode !== 'study') setMode('study');
   });
 
   resetBtn.addEventListener('click', () => {
     const period = PERIODS[state.periodIndex];
     if (confirm(`「${period.label}」の既読記録をリセットしますか？`)) {
       localStorage.removeItem(storageKey(period.key));
-      render();
+      if (state.mode === 'list') renderList(); else render();
     }
   });
 
