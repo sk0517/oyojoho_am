@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>応用情報 午前問題ビューア</title>
+<style>
+  :root {
+    --bg: #f5f6f8;
+    --card-bg: #ffffff;
+    --border: #e0e2e6;
+    --text: #1f2328;
+    --muted: #6b7280;
+    --accent: #2563eb;
+    --accent-dark: #1d4ed8;
+    --answer-bg: #eef6ff;
+    --ok: #16a34a;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans", "Yu Gothic", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+  }
+  header {
+    position: sticky;
+    top: 0;
+    background: var(--card-bg);
+    border-bottom: 1px solid var(--border);
+    padding: 10px 14px;
+    z-index: 10;
+  }
+  header h1 {
+    font-size: 16px;
+    margin: 0 0 8px 0;
+  }
+  .controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+  }
+  select, button {
+    font-size: 14px;
+    padding: 8px 10px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: #fff;
+  }
+  button {
+    cursor: pointer;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+  }
+  button:active { background: var(--accent-dark); }
+  button.secondary {
+    background: #fff;
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
+  button:disabled { opacity: 0.4; cursor: default; }
+  main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 14px;
+  }
+  .progress {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 14px;
+  }
+  .meta {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 10px;
+  }
+  .meta span { white-space: nowrap; }
+  .qtext {
+    white-space: pre-wrap;
+    font-size: 15.5px;
+    margin-bottom: 12px;
+  }
+  .images img {
+    max-width: 100%;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    margin: 6px 0;
+    display: block;
+  }
+  .reveal-btn {
+    width: 100%;
+    padding: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    margin-top: 8px;
+  }
+  .answer-box {
+    display: none;
+    margin-top: 14px;
+    padding: 14px;
+    background: var(--answer-bg);
+    border-radius: 8px;
+    border: 1px solid #cfe1fb;
+    white-space: pre-wrap;
+    font-size: 14.5px;
+  }
+  .answer-box.show { display: block; }
+  .answer-box strong { color: var(--accent-dark); }
+  .nav-row {
+    display: flex;
+    gap: 8px;
+    margin-top: 14px;
+  }
+  .nav-row button { flex: 1; padding: 12px; }
+  .jump-row {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 10px;
+    flex-wrap: wrap;
+  }
+  .jump-row input {
+    width: 54px;
+    padding: 6px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    text-align: center;
+    font-size: 14px;
+  }
+  footer {
+    text-align: center;
+    color: var(--muted);
+    font-size: 12px;
+    padding: 20px;
+  }
+  @media (max-width: 480px) {
+    .qtext { font-size: 15px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>応用情報技術者試験 午前問題ビューア</h1>
+  <div class="controls">
+    <select id="periodSelect"></select>
+    <button id="shuffleBtn" class="secondary" title="この期をシャッフルして最初から">🔀 シャッフル</button>
+    <button id="resetBtn" class="secondary" title="正答率をリセット">↺ 記録リセット</button>
+  </div>
+</header>
+
+<main>
+  <div class="progress">
+    <span id="progressText">-</span>
+    <span id="scoreText"></span>
+  </div>
+
+  <div class="card">
+    <div class="meta" id="meta"></div>
+    <div class="qtext" id="qtext"></div>
+    <div class="images" id="images"></div>
+
+    <button class="reveal-btn" id="revealBtn">解答を見る</button>
+    <div class="answer-box" id="answerBox"></div>
+  </div>
+
+  <div class="nav-row">
+    <button class="secondary" id="prevBtn">← 前の問題</button>
+    <button class="secondary" id="nextBtn">次の問題 →</button>
+  </div>
+
+  <div class="jump-row">
+    <span>問題番号にジャンプ:</span>
+    <input type="number" id="jumpInput" min="1" max="80">
+    <button class="secondary" id="jumpBtn">移動</button>
+  </div>
+</main>
+
+<footer>全21期 1680問収録</footer>
+
+<script src="data.js"></script>
+<script>
+  const state = {
+    periodIndex: 0,
+    order: [],   // array of question indices within current period, defines display order
+    pos: 0,      // position within order
+  };
+
+  const periodSelect = document.getElementById('periodSelect');
+  const meta = document.getElementById('meta');
+  const qtext = document.getElementById('qtext');
+  const imagesEl = document.getElementById('images');
+  const revealBtn = document.getElementById('revealBtn');
+  const answerBox = document.getElementById('answerBox');
+  const progressText = document.getElementById('progressText');
+  const scoreText = document.getElementById('scoreText');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const jumpInput = document.getElementById('jumpInput');
+  const jumpBtn = document.getElementById('jumpBtn');
+  const shuffleBtn = document.getElementById('shuffleBtn');
+  const resetBtn = document.getElementById('resetBtn');
+
+  function storageKey(periodKey) {
+    return 'amviewer_seen_' + periodKey;
+  }
+
+  function loadSeen(periodKey) {
+    try {
+      return JSON.parse(localStorage.getItem(storageKey(periodKey)) || '{}');
+    } catch (e) { return {}; }
+  }
+
+  function saveSeen(periodKey, seen) {
+    localStorage.setItem(storageKey(periodKey), JSON.stringify(seen));
+  }
+
+  function markSeen(periodKey, qn) {
+    const seen = loadSeen(periodKey);
+    seen[qn] = true;
+    saveSeen(periodKey, seen);
+  }
+
+  function initPeriodSelect() {
+    PERIODS.forEach((p, i) => {
+      const opt = document.createElement('option');
+      opt.value = i;
+      opt.textContent = `${p.label}（${p.questions.length}問）`;
+      periodSelect.appendChild(opt);
+    });
+    const savedPeriod = localStorage.getItem('amviewer_period');
+    let idx = 0;
+    if (savedPeriod !== null) {
+      const found = PERIODS.findIndex(p => p.key === savedPeriod);
+      if (found >= 0) idx = found;
+    }
+    periodSelect.value = idx;
+    setPeriod(idx, false);
+  }
+
+  function setPeriod(idx, shuffle) {
+    state.periodIndex = idx;
+    const period = PERIODS[idx];
+    localStorage.setItem('amviewer_period', period.key);
+    state.order = period.questions.map((_, i) => i);
+    if (shuffle) {
+      for (let i = state.order.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [state.order[i], state.order[j]] = [state.order[j], state.order[i]];
+      }
+    }
+    const savedPos = shuffle ? 0 : parseInt(localStorage.getItem('amviewer_pos_' + period.key) || '0', 10);
+    state.pos = isNaN(savedPos) ? 0 : Math.min(savedPos, state.order.length - 1);
+    render();
+  }
+
+  function currentQuestion() {
+    const period = PERIODS[state.periodIndex];
+    const qIdx = state.order[state.pos];
+    return { period, q: period.questions[qIdx] };
+  }
+
+  function render() {
+    const { period, q } = currentQuestion();
+    localStorage.setItem('amviewer_pos_' + period.key, state.pos);
+
+    meta.innerHTML = `
+      <span>問${q.n}</span>
+      <span>${q.category || ''}</span>
+      <span>難易度 ${q.difficulty || ''}</span>
+      <span>重要度 ${q.importance || ''}</span>
+      ${q.tags ? `<span>タグ: ${q.tags}</span>` : ''}
+    `;
+    qtext.textContent = q.question;
+
+    imagesEl.innerHTML = '';
+    (q.images || []).forEach(src => {
+      const img = document.createElement('img');
+      img.src = src;
+      img.loading = 'lazy';
+      img.alt = '問題画像';
+      imagesEl.appendChild(img);
+    });
+
+    answerBox.classList.remove('show');
+    answerBox.textContent = '';
+    revealBtn.textContent = '解答を見る';
+    revealBtn.disabled = false;
+
+    const seen = loadSeen(period.key);
+    const answered = !!seen[q.n];
+    if (answered) {
+      showAnswer();
+    }
+
+    progressText.textContent = `${period.label} — ${state.pos + 1} / ${state.order.length} (問${q.n})`;
+    const seenCount = Object.keys(seen).length;
+    scoreText.textContent = `既読 ${seenCount} / ${period.questions.length}`;
+
+    prevBtn.disabled = state.pos === 0;
+    nextBtn.disabled = state.pos === state.order.length - 1;
+    jumpInput.max = period.questions.length;
+  }
+
+  function showAnswer() {
+    const { period, q } = currentQuestion();
+    let html = (q.explanation || '（解説なし）')
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+    answerBox.innerHTML = html;
+    answerBox.classList.add('show');
+    revealBtn.disabled = true;
+    revealBtn.textContent = '解答表示済み';
+    markSeen(period.key, q.n);
+    const seen = loadSeen(period.key);
+    scoreText.textContent = `既読 ${Object.keys(seen).length} / ${period.questions.length}`;
+  }
+
+  revealBtn.addEventListener('click', showAnswer);
+
+  prevBtn.addEventListener('click', () => {
+    if (state.pos > 0) { state.pos--; render(); }
+  });
+  nextBtn.addEventListener('click', () => {
+    if (state.pos < state.order.length - 1) { state.pos++; render(); }
+  });
+
+  periodSelect.addEventListener('change', () => {
+    setPeriod(parseInt(periodSelect.value, 10), false);
+  });
+
+  shuffleBtn.addEventListener('click', () => {
+    setPeriod(state.periodIndex, true);
+  });
+
+  resetBtn.addEventListener('click', () => {
+    const period = PERIODS[state.periodIndex];
+    if (confirm(`「${period.label}」の既読記録をリセットしますか？`)) {
+      localStorage.removeItem(storageKey(period.key));
+      render();
+    }
+  });
+
+  jumpBtn.addEventListener('click', () => {
+    const n = parseInt(jumpInput.value, 10);
+    const period = PERIODS[state.periodIndex];
+    const qIdx = period.questions.findIndex(q => q.n === n);
+    if (qIdx === -1) { alert('その問題番号は存在しません'); return; }
+    const orderPos = state.order.indexOf(qIdx);
+    if (orderPos === -1) { alert('見つかりませんでした'); return; }
+    state.pos = orderPos;
+    render();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.target.tagName === 'INPUT') return;
+    if (e.key === 'ArrowRight') nextBtn.click();
+    if (e.key === 'ArrowLeft') prevBtn.click();
+    if (e.key === ' ') { e.preventDefault(); if (!revealBtn.disabled) revealBtn.click(); }
+  });
+
+  initPeriodSelect();
+</script>
+</body>
+</html>
