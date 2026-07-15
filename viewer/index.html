@@ -362,10 +362,11 @@
       if (found >= 0) idx = found;
     }
     periodSelect.value = idx;
-    setPeriod(idx, false, true);
+    // Initial load: nothing to reset yet, and we DO want to resume the saved position.
+    setPeriod(idx, false, false, true);
   }
 
-  function setPeriod(idx, shuffle, resetFilters) {
+  function setPeriod(idx, shuffle, resetFilters, keepPos) {
     state.periodIndex = idx;
     const period = PERIODS[idx];
     localStorage.setItem('amviewer_period', period.key);
@@ -374,7 +375,7 @@
       state.tag = 'all';
     }
     populateFilters(period);
-    applyFilter(shuffle, !resetFilters);
+    applyFilter(shuffle, keepPos);
   }
 
   function applyFilter(shuffle, keepPos) {
@@ -573,7 +574,9 @@
   });
 
   periodSelect.addEventListener('change', () => {
-    setPeriod(parseInt(periodSelect.value, 10), false, true);
+    // Switching period: reset filters (new period, no filter carried over),
+    // but still resume the saved position for that period if one exists.
+    setPeriod(parseInt(periodSelect.value, 10), false, true, true);
   });
 
   shuffleBtn.addEventListener('click', () => {
