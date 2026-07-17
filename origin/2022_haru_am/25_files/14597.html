@@ -1,0 +1,59 @@
+
+<!-- saved from url=(0038)https://ap.dekidas.com/questions/14597 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="./source-code-pro.js.ダウンロード"></script>
+  <link href="./css" rel="stylesheet">
+  <style>
+      img {
+          max-width: 100%;
+      }
+
+      body {
+          width: 95%;
+          line-height: 31px;
+          -webkit-text-size-adjust: 100%;
+      }
+
+      .test-tables tr td {
+          line-height: 45px;
+      }
+
+      .test-tables tr td img {
+          height: 45px !important;
+          width: unset !important;
+          vertical-align: top;
+      }
+  </style>
+</head>
+
+<body marginwidth="0" marginheight="0">
+<div style="height: 5px;"></div>
+<div class="question-body">
+  レイトレーシング法の説明として，適切なものはどれか。<br>
+<br>
+ア　スクリーンの全ての画素について，視線と描画の対象となる物体との交点を反射属性や透明属性なども含めて計算し，その中から視点に最も近い交点を選択する。<br>
+イ　スクリーンの走査線ごとに視点とその走査線を結ぶ走査面を作成し，各走査面と描画の対象となる物体との交差を調べて交差線分を求め，奥行き判定を行うことによって描画する。<br>
+ウ　描画の対象となる二つの物体のうち，一方が近くに，もう一方が遠くにあるときに，まず遠くの物体を描いてから近くの物体を重ね書きする。<br>
+エ　描画の対象となる物体の各面をピクセルに分割し，ピクセルごとに視点までの距離を計算し，その最小値を作業領域に保持することによって，視点までの距離が最小となる面を求める。<br>
+<br>
+<br>
+
+</div>
+
+<script>
+    window.onload = function () {
+        if (window.matchMedia && window.matchMedia('(max-device-width: 1024px)').matches) {
+            var images = document.getElementsByTagName("img")
+            for (var i = 0; i < images.length; i++) {
+                var image = images[i];
+                var re = /\d+(\.\d+)?/
+                var matches = image.onload.toString().match(re);
+                var rate = parseFloat(matches[0])
+                image.width = image.naturalWidth * 0.9 * rate;
+            }
+        }
+    }
+</script>
+
+</body></html>

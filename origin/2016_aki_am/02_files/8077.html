@@ -1,0 +1,78 @@
+
+<!-- saved from url=(0037)https://ap.dekidas.com/questions/8077 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="./source-code-pro.js.ダウンロード"></script>
+  <link href="./css" rel="stylesheet">
+  <style>
+      img {
+          max-width: 100%;
+      }
+
+      body {
+          width: 95%;
+          line-height: 31px;
+          -webkit-text-size-adjust: 100%;
+      }
+
+      .test-tables tr td {
+          line-height: 45px;
+      }
+
+      .test-tables tr td img {
+          height: 45px !important;
+          width: unset !important;
+          vertical-align: top;
+      }
+  </style>
+</head>
+
+<body marginwidth="0" marginheight="0">
+<div style="height: 5px;"></div>
+<div class="question-body">
+  0≦<i>x</i>≦1の範囲で単調に増加する連続関数<i>f</i>(<i>x</i>)が<i>f</i>(0)＜0≦<i>f</i>(1)を満たすときに，区間内で<i>f</i>(<i>x</i>)＝0である<i>x</i>の値を近似的に求めるアルゴリズムにおいて，（2）は何回実行されるか。<br>
+<br>
+〔アルゴリズム〕<br>
+（1）<i>x</i><sub>0</sub>←0，<i>x</i><sub>1</sub>←1とする。<br>
+（2）<span class="p-divition-number-text"><i>x</i>←</span><table class="p-division-number"><tbody><tr><td rowspan="3"></td><td align="center"><i>x</i><sub>0</sub>＋<i>x</i><sub>1</sub></td><td rowspan="3"></td></tr><tr><td><img src="./fracline-981fd2d098cf512c40e13b08340b3413a19bfa43ed45cbbf7a0505d00a8462d5.gif" width="60" height="1"></td></tr><tr><td align="center">2</td></tr></tbody></table>とする。<br>
+（3）<i>x</i><sub>1</sub>−<i>x</i>＜0.001ならば<i>x</i>の値を近似値として終了する。<br>
+（4）<i>f</i>(<i>x</i>)≧0ならば<i>x</i><sub>1</sub>←<i>x</i>として，そうでなければ<i>x</i><sub>0</sub>←<i>x</i>とする。<br>
+（5）(2）に戻る。<br>
+<br>
+ア　10<br>
+イ　20<br>
+ウ　100<br>
+エ　1,000<br>
+<br>
+<br>
+<style>
+    span.p-divition-number-text {
+        font-size: 90%;
+        line-height: 80%;
+    }
+
+    table.p-division-number{
+        display: inline;
+        font-size: 90%;
+        line-height: 80%;
+    }
+</style>
+
+</div>
+
+<script>
+    window.onload = function () {
+        if (window.matchMedia && window.matchMedia('(max-device-width: 1024px)').matches) {
+            var images = document.getElementsByTagName("img")
+            for (var i = 0; i < images.length; i++) {
+                var image = images[i];
+                var re = /\d+(\.\d+)?/
+                var matches = image.onload.toString().match(re);
+                var rate = parseFloat(matches[0])
+                image.width = image.naturalWidth * 0.9 * rate;
+            }
+        }
+    }
+</script>
+
+</body></html>

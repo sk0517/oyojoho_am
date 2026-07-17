@@ -1,0 +1,68 @@
+
+<!-- saved from url=(0038)https://ap.dekidas.com/questions/18281 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="./source-code-pro.js.ダウンロード"></script>
+  <link href="./css" rel="stylesheet">
+  <style>
+      img {
+          max-width: 100%;
+      }
+
+      body {
+          width: 95%;
+          line-height: 31px;
+          -webkit-text-size-adjust: 100%;
+      }
+
+      .test-tables tr td {
+          line-height: 45px;
+      }
+
+      .test-tables tr td img {
+          height: 45px !important;
+          width: unset !important;
+          vertical-align: top;
+      }
+  </style>
+</head>
+
+<body marginwidth="0" marginheight="0">
+<div style="height: 5px;"></div>
+<div class="question-body">
+  次の方式で画素にメモリを割り当てる640×480のグラフィックLCDモジュールがある。始点（5，4）から終点（9，8）まで直線を描画するとき，直線上のx＝7の画素に割り当てられたメモリのアドレスの先頭は何番地か。ここで，画素の座標は（x，y）で表すものとする。<br>
+<br>
+〔方式〕<br>
+　・メモリは0番地から昇順に使用する。<br>
+　・1画素は16ビットとする。<br>
+　・座標（0，0）から座標（639，479）までメモリを連続して割り当てる。<br>
+　・各画素は，x＝0からx軸の方向にメモリを割り当てていく。<br>
+　・x＝639の次はx＝0とし，yを1増やす。<br>
+<br>
+<img src="./AP2024SA022-01.gif" align="middle" onload="this.width = this.width*0.5" width="428"><br>
+<br>
+ア　3847<br>
+イ　7680<br>
+ウ　7694<br>
+エ　8978<br>
+<br>
+<br>
+
+</div>
+
+<script>
+    window.onload = function () {
+        if (window.matchMedia && window.matchMedia('(max-device-width: 1024px)').matches) {
+            var images = document.getElementsByTagName("img")
+            for (var i = 0; i < images.length; i++) {
+                var image = images[i];
+                var re = /\d+(\.\d+)?/
+                var matches = image.onload.toString().match(re);
+                var rate = parseFloat(matches[0])
+                image.width = image.naturalWidth * 0.9 * rate;
+            }
+        }
+    }
+</script>
+
+</body></html>

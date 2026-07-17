@@ -1,0 +1,68 @@
+
+<!-- saved from url=(0037)https://ap.dekidas.com/questions/8563 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="./source-code-pro.js.ダウンロード"></script>
+  <link href="./css" rel="stylesheet">
+  <style>
+      img {
+          max-width: 100%;
+      }
+
+      body {
+          width: 95%;
+          line-height: 31px;
+          -webkit-text-size-adjust: 100%;
+      }
+
+      .test-tables tr td {
+          line-height: 45px;
+      }
+
+      .test-tables tr td img {
+          height: 45px !important;
+          width: unset !important;
+          vertical-align: top;
+      }
+  </style>
+</head>
+
+<body marginwidth="0" marginheight="0">
+<div style="height: 5px;"></div>
+<div class="question-body">
+  再帰的に定義された手続procで，proc(5)を実行したとき，印字される数字を順番に並べたものはどれか。<br>
+　　　　proc(<i>n</i>)<br>
+　　　　　<i>n</i>＝0ならば戻る<br>
+　　　　　そうでなければ<br>
+　　　　　{<br>
+　　　　　　<i>n</i>を印字する<br>
+　　　　　　proc(<i>n</i>−1)を呼び出す<br>
+　　　　　　<i>n</i>を印字する<br>
+　　　　　}<br>
+　　　　　を実行して戻る<br>
+<br>
+ア　543212345<br>
+イ　5432112345<br>
+ウ　54321012345<br>
+エ　543210012345<br>
+<br>
+<br>
+
+</div>
+
+<script>
+    window.onload = function () {
+        if (window.matchMedia && window.matchMedia('(max-device-width: 1024px)').matches) {
+            var images = document.getElementsByTagName("img")
+            for (var i = 0; i < images.length; i++) {
+                var image = images[i];
+                var re = /\d+(\.\d+)?/
+                var matches = image.onload.toString().match(re);
+                var rate = parseFloat(matches[0])
+                image.width = image.naturalWidth * 0.9 * rate;
+            }
+        }
+    }
+</script>
+
+</body></html>

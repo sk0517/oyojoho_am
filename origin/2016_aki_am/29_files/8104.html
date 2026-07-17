@@ -1,0 +1,78 @@
+
+<!-- saved from url=(0037)https://ap.dekidas.com/questions/8104 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="./source-code-pro.js.ダウンロード"></script>
+  <link href="./css" rel="stylesheet">
+  <style>
+      img {
+          max-width: 100%;
+      }
+
+      body {
+          width: 95%;
+          line-height: 31px;
+          -webkit-text-size-adjust: 100%;
+      }
+
+      .test-tables tr td {
+          line-height: 45px;
+      }
+
+      .test-tables tr td img {
+          height: 45px !important;
+          width: unset !important;
+          vertical-align: top;
+      }
+  </style>
+</head>
+
+<body marginwidth="0" marginheight="0">
+<div style="height: 5px;"></div>
+<div class="question-body">
+  “サッカーチーム”表と“審判”表から，条件を満たす対戦を導出するSQL文のaに入れる字句はどれか。<br>
+<br>
+〔条件〕<br>
+　・出場チーム1のチーム名は出場チーム2のチーム名よりもアルファベット順で先にくる。<br>
+　・審判は，所属チームの対戦を担当することはできない。<br>
+<br>
+<img src="./AP2016AA029-01.gif" align="middle" onload="this.width = this.width*0.4" width="120">
+<img src="./AP2016AA029-02.gif" align="middle" onload="this.width = this.width*0.4" width="231"><br>
+<br>
+<img src="./AP2016AA029-03.gif" align="middle" onload="this.width = this.width*0.4" width="322"><br>
+<br>
+〔SQL文〕<br>
+　<span style="font-family:&#39;Source Code Pro&#39;">SELECT A.チーム名 AS 出場チーム1, B.チーム名 AS 出場チーム2,</span><br>
+　　　　<span style="font-family:&#39;Source Code Pro&#39;">C.氏名 AS 審判氏名</span><br>
+　　　　<span style="font-family:&#39;Source Code Pro&#39;">FROM サッカーチーム AS A, サッカーチーム AS B, 審判 AS C</span><br>
+　　　　<span style="font-family:&#39;Source Code Pro&#39;">WHERE A.チーム名 &lt; B.チーム名 AND </span><span style="border: 1px solid #000000">&nbsp;&nbsp;&nbsp;a&nbsp;&nbsp;&nbsp;</span><br>
+<br>
+ア　<span style="font-family:&#39;Source Code Pro&#39;">(A.チーム名 &lt;&gt; C.所属チーム名 OR B.チーム名&lt;&gt; C.所属チーム名)</span><br>
+イ　<span style="font-family:&#39;Source Code Pro&#39;">C.所属チーム名 NOT IN (A.チーム名, B.チーム名)</span><br>
+ウ　<span style="font-family:&#39;Source Code Pro&#39;">EXISTS</span><br>
+    <span style="font-family:&#39;Source Code Pro&#39;">(SELECT * FROM 審判 AS D WHERE A.チーム名 &lt;&gt; D.所属チーム名</span><br>
+     <span style="font-family:&#39;Source Code Pro&#39;">AND B.チーム名&lt;&gt; D.所属チーム名)</span><br>
+エ　<span style="font-family:&#39;Source Code Pro&#39;">NOT EXISTS</span><br>
+    <span style="font-family:&#39;Source Code Pro&#39;">(SELECT * FROM 審判 AS D WHERE A.チーム名 = D.所属チーム名</span><br>
+     <span style="font-family:&#39;Source Code Pro&#39;">OR B.チーム名 = D.所属チーム名)</span><br>
+<br>
+<br>
+
+</div>
+
+<script>
+    window.onload = function () {
+        if (window.matchMedia && window.matchMedia('(max-device-width: 1024px)').matches) {
+            var images = document.getElementsByTagName("img")
+            for (var i = 0; i < images.length; i++) {
+                var image = images[i];
+                var re = /\d+(\.\d+)?/
+                var matches = image.onload.toString().match(re);
+                var rate = parseFloat(matches[0])
+                image.width = image.naturalWidth * 0.9 * rate;
+            }
+        }
+    }
+</script>
+
+</body></html>

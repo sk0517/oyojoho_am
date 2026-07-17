@@ -1,0 +1,59 @@
+
+<!-- saved from url=(0037)https://ap.dekidas.com/questions/8605 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="./source-code-pro.js.ダウンロード"></script>
+  <link href="./css" rel="stylesheet">
+  <style>
+      img {
+          max-width: 100%;
+      }
+
+      body {
+          width: 95%;
+          line-height: 31px;
+          -webkit-text-size-adjust: 100%;
+      }
+
+      .test-tables tr td {
+          line-height: 45px;
+      }
+
+      .test-tables tr td img {
+          height: 45px !important;
+          width: unset !important;
+          vertical-align: top;
+      }
+  </style>
+</head>
+
+<body marginwidth="0" marginheight="0">
+<div style="height: 5px;"></div>
+<div class="question-body">
+  マッシュアップを利用してWebコンテンツを表示している例として，最も適切なものはどれか。<br>
+<br>
+ア　Webブラウザにプラグインを組み込み，動画やアニメーションを表示する。<br>
+イ　地図上のカーソル移動に伴い，ページを切り替えずにスクロール表示する。<br>
+ウ　電車経路の探索結果上に，各路線会社のWebページへのリンクを表示する。<br>
+エ　店舗案内のページ上に，他のサイトが提供する地図情報を表示する。<br>
+<br>
+<br>
+
+</div>
+
+<script>
+    window.onload = function () {
+        if (window.matchMedia && window.matchMedia('(max-device-width: 1024px)').matches) {
+            var images = document.getElementsByTagName("img")
+            for (var i = 0; i < images.length; i++) {
+                var image = images[i];
+                var re = /\d+(\.\d+)?/
+                var matches = image.onload.toString().match(re);
+                var rate = parseFloat(matches[0])
+                image.width = image.naturalWidth * 0.9 * rate;
+            }
+        }
+    }
+</script>
+
+</body></html>

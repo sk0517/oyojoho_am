@@ -1,0 +1,73 @@
+
+<!-- saved from url=(0038)https://ap.dekidas.com/questions/14588 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="./source-code-pro.js.ダウンロード"></script>
+  <link href="./css" rel="stylesheet">
+  <style>
+      img {
+          max-width: 100%;
+      }
+
+      body {
+          width: 95%;
+          line-height: 31px;
+          -webkit-text-size-adjust: 100%;
+      }
+
+      .test-tables tr td {
+          line-height: 45px;
+      }
+
+      .test-tables tr td img {
+          height: 45px !important;
+          width: unset !important;
+          vertical-align: top;
+      }
+  </style>
+</head>
+
+<body marginwidth="0" marginheight="0">
+<div style="height: 5px;"></div>
+<div class="question-body">
+  ジョブ群と実行の条件が次のとおりであるとき，一時ファイルを作成する磁気ディスクに必要な容量は最低何Mバイトか。<br>
+<br>
+〔ジョブ群〕<br>
+<br>
+<img src="./AP2022SA016-01.gif" align="middle" onload="this.width = this.width*0.5" width="428"><br>
+<br>
+〔実行の条件〕<br>
+（1）　ジョブの実行多重度を2とする。<br>
+（2）　各ジョブの処理時間は同一であり，他のジョブの影響は受けない。<br>
+（3）　各ジョブは開始時に50Mバイトの一時ファイルを新たに作成する。<br>
+（4）　<img src="./AP2022SA016-02.gif" align="middle" onload="this.width = this.width*0.5" width="82">の関係があれば，ジョブXの開始時に作成した一時ファイルは，直後のジョブYで参照し，ジョブYの終了時にその一時ファイルを削除する。直後のジョブが複数個ある場合には，最初に生起されるジョブだけが先行ジョブの一時ファイルを参照する。<br>
+（5）　<img src="./AP2022SA016-03.gif" align="middle" onload="this.width = this.width*0.5" width="85">はジョブXの終了時に，ジョブY，ジョブZのようにジョブXと矢印で結ばれる全てのジョブが，上から記述された順に優先して生起されることを示す。<br>
+（6）　<img src="./AP2022SA016-04.gif" align="middle" onload="this.width = this.width*0.5" width="85">は先行するジョブX，Y両方が終了したときにジョブZが生起されることを示す。<br>
+（7）　ジョブの生起とは実行待ち行列への追加を意味し，各ジョブは待ち行列の順に実行される。<br>
+（8）　OSのオーバヘッドは考慮しない。<br>
+<br>
+ア　100<br>
+イ　150<br>
+ウ　200<br>
+エ　250<br>
+<br>
+<br>
+
+</div>
+
+<script>
+    window.onload = function () {
+        if (window.matchMedia && window.matchMedia('(max-device-width: 1024px)').matches) {
+            var images = document.getElementsByTagName("img")
+            for (var i = 0; i < images.length; i++) {
+                var image = images[i];
+                var re = /\d+(\.\d+)?/
+                var matches = image.onload.toString().match(re);
+                var rate = parseFloat(matches[0])
+                image.width = image.naturalWidth * 0.9 * rate;
+            }
+        }
+    }
+</script>
+
+</body></html>

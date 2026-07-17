@@ -1,0 +1,67 @@
+
+<!-- saved from url=(0037)https://ap.dekidas.com/questions/8939 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="./source-code-pro.js.ダウンロード"></script>
+  <link href="./css" rel="stylesheet">
+  <style>
+      img {
+          max-width: 100%;
+      }
+
+      body {
+          width: 95%;
+          line-height: 31px;
+          -webkit-text-size-adjust: 100%;
+      }
+
+      .test-tables tr td {
+          line-height: 45px;
+      }
+
+      .test-tables tr td img {
+          height: 45px !important;
+          width: unset !important;
+          vertical-align: top;
+      }
+  </style>
+</head>
+
+<body marginwidth="0" marginheight="0">
+<div style="height: 5px;"></div>
+<div class="question-body">
+  次のシステムにおいて，ピーク時間帯のCPU使用率は何％か。ここで，トランザクションはレコードアクセス処理と計算処理から成り，レコードアクセスはCPU処理だけでI/Oは発生せず，OSのオーバヘッドは考慮しないものとする。また，1日のうち発生するトランザクション数が最大になる1時間をピーク時間帯と定義する。<br>
+<br>
+〔システムの概要〕<br>
+（1）CPU数：1個<br>
+（2）1日に発生する平均トランザクション数：54,000件<br>
+（3）1日のピーク時間帯におけるトランザクション数の割合：20％<br>
+（4）1トランザクション当たりの平均レコードアクセス数：100レコード<br>
+（5）1レコードアクセスに必要な平均CPU時間：1ミリ秒<br>
+（6）1トランザクション当たりの計算処理に必要な平均CPU時間：100ミリ秒<br>
+<br>
+ア　20<br>
+イ　30<br>
+ウ　50<br>
+エ　60<br>
+<br>
+<br>
+
+</div>
+
+<script>
+    window.onload = function () {
+        if (window.matchMedia && window.matchMedia('(max-device-width: 1024px)').matches) {
+            var images = document.getElementsByTagName("img")
+            for (var i = 0; i < images.length; i++) {
+                var image = images[i];
+                var re = /\d+(\.\d+)?/
+                var matches = image.onload.toString().match(re);
+                var rate = parseFloat(matches[0])
+                image.width = image.naturalWidth * 0.9 * rate;
+            }
+        }
+    }
+</script>
+
+</body></html>

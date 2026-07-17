@@ -1,0 +1,59 @@
+
+<!-- saved from url=(0038)https://ap.dekidas.com/questions/16724 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="./source-code-pro.js.ダウンロード"></script>
+  <link href="./css" rel="stylesheet">
+  <style>
+      img {
+          max-width: 100%;
+      }
+
+      body {
+          width: 95%;
+          line-height: 31px;
+          -webkit-text-size-adjust: 100%;
+      }
+
+      .test-tables tr td {
+          line-height: 45px;
+      }
+
+      .test-tables tr td img {
+          height: 45px !important;
+          width: unset !important;
+          vertical-align: top;
+      }
+  </style>
+</head>
+
+<body marginwidth="0" marginheight="0">
+<div style="height: 5px;"></div>
+<div class="question-body">
+  ほとんどのプログラムの大きさがページサイズの半分以下のシステムにおいて，ページサイズを半分にしたときに予想されるものはどれか。ここで，このシステムは主記憶が不足しがちで，多重度やスループットなどはシステム性能の限界で運用しているものとする。<br>
+<br>
+ア　ページサイズが小さくなるので，領域管理などのオーバーヘッドが減少する。<br>
+イ　ページ内に余裕がなくなるので，ページ置換えによってシステム性能が低下する。<br>
+ウ　ページ内の無駄な空き領域が減少するので，主記憶不足が緩和される。<br>
+エ　ページフォールトの回数が増加するので，システム性能が低下する。<br>
+<br>
+<br>
+
+</div>
+
+<script>
+    window.onload = function () {
+        if (window.matchMedia && window.matchMedia('(max-device-width: 1024px)').matches) {
+            var images = document.getElementsByTagName("img")
+            for (var i = 0; i < images.length; i++) {
+                var image = images[i];
+                var re = /\d+(\.\d+)?/
+                var matches = image.onload.toString().match(re);
+                var rate = parseFloat(matches[0])
+                image.width = image.naturalWidth * 0.9 * rate;
+            }
+        }
+    }
+</script>
+
+</body></html>

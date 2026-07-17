@@ -1,0 +1,64 @@
+
+<!-- saved from url=(0037)https://ap.dekidas.com/questions/8639 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="./source-code-pro.js.ダウンロード"></script>
+  <link href="./css" rel="stylesheet">
+  <style>
+      img {
+          max-width: 100%;
+      }
+
+      body {
+          width: 95%;
+          line-height: 31px;
+          -webkit-text-size-adjust: 100%;
+      }
+
+      .test-tables tr td {
+          line-height: 45px;
+      }
+
+      .test-tables tr td img {
+          height: 45px !important;
+          width: unset !important;
+          vertical-align: top;
+      }
+  </style>
+</head>
+
+<body marginwidth="0" marginheight="0">
+<div style="height: 5px;"></div>
+<div class="question-body">
+  ハミング符号とは，データに冗長ビットを付加して，1ビットの誤りを訂正できるようにしたものである。ここでは，X<sub>1</sub>，X<sub>2</sub>，X<sub>3</sub>，X<sub>4</sub>の4ビットから成るデータに，3ビットの冗長ビットP<sub>3</sub>，P<sub>2</sub>，P<sub>1</sub>を付加したハミング符号X<sub>1</sub>X<sub>2</sub>X<sub>3</sub>P<sub>3</sub>X<sub>4</sub>P<sub>2</sub>P<sub>1</sub>を考える。付加したビットP<sub>1</sub>，P<sub>2</sub>，P<sub>3</sub>は，それぞれ<br>
+　　　　X<sub>1</sub>⊕X<sub>3</sub>⊕X<sub>4</sub>⊕P<sub>1</sub>＝0<br>
+　　　　X<sub>1</sub>⊕X<sub>2</sub>⊕X<sub>4</sub>⊕P<sub>2</sub>＝0<br>
+　　　　X<sub>1</sub>⊕X<sub>2</sub>⊕X<sub>3</sub>⊕P<sub>3</sub>＝0<br>
+となるように決める。ここで，⊕は排他的論理和を表す。<br>
+　ハミング符号1110011には1ビットの誤りが存在する。誤りビットを訂正したハミング符号はどれか。<br>
+<br>
+ア　0110011<br>
+イ　1010011<br>
+ウ　1100011<br>
+エ　1110111<br>
+<br>
+<br>
+
+</div>
+
+<script>
+    window.onload = function () {
+        if (window.matchMedia && window.matchMedia('(max-device-width: 1024px)').matches) {
+            var images = document.getElementsByTagName("img")
+            for (var i = 0; i < images.length; i++) {
+                var image = images[i];
+                var re = /\d+(\.\d+)?/
+                var matches = image.onload.toString().match(re);
+                var rate = parseFloat(matches[0])
+                image.width = image.naturalWidth * 0.9 * rate;
+            }
+        }
+    }
+</script>
+
+</body></html>

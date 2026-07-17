@@ -1,0 +1,74 @@
+
+<!-- saved from url=(0038)https://ap.dekidas.com/questions/21524 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="./source-code-pro.js.ダウンロード"></script>
+  <link href="./css" rel="stylesheet">
+  <style>
+      img {
+          max-width: 100%;
+      }
+
+      body {
+          width: 95%;
+          line-height: 31px;
+          -webkit-text-size-adjust: 100%;
+      }
+
+      .test-tables tr td {
+          line-height: 45px;
+      }
+
+      .test-tables tr td img {
+          height: 45px !important;
+          width: unset !important;
+          vertical-align: top;
+      }
+  </style>
+</head>
+
+<body marginwidth="0" marginheight="0">
+<div style="height: 5px;"></div>
+<div class="question-body">
+  SQL文に示す参照制約が存在する“商品”表と“受注”表とがある。“商品”表の行を削除したとき，削除した行の商品コードと同じ値の商品コードをもつ“受注”表の行を自動的に削除するSQL文として，aに入れる字句はどれか。<br>
+<br>
+〔SQL文〕<br>
+　CREATE TABLE 商品 (<br>
+　　　商品コード　　CHAR(4) PRIMARY KEY ,<br>
+　　　商品名　　　　VARCHAR（64）<br>
+　)<br>
+　<br>
+　CREATE TABLE 受注 (<br>
+　　　受注番号　　　INTEGER PRIMARY KEY ,<br>
+　　　商品コード　　CHAR(4) ,<br>
+　　　受注個数　　　INTEGER ,<br>
+　　　納品日　　　　CHAR(8) ,<br>
+　　　FOREIGN KEY (商品コード) REFERENCES 商品(商品コード)<br>
+　　　ON DELETE <span style="border: 1px solid #000000">&nbsp;&nbsp;&nbsp;a&nbsp;&nbsp;&nbsp;</span><br>
+　)<br>
+<br>
+ア　CASCADE<br>
+イ　RESTRICT<br>
+ウ　SET DEFAULT<br>
+エ　SET NULL<br>
+<br>
+<br>
+
+</div>
+
+<script>
+    window.onload = function () {
+        if (window.matchMedia && window.matchMedia('(max-device-width: 1024px)').matches) {
+            var images = document.getElementsByTagName("img")
+            for (var i = 0; i < images.length; i++) {
+                var image = images[i];
+                var re = /\d+(\.\d+)?/
+                var matches = image.onload.toString().match(re);
+                var rate = parseFloat(matches[0])
+                image.width = image.naturalWidth * 0.9 * rate;
+            }
+        }
+    }
+</script>
+
+</body></html>

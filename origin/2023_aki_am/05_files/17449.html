@@ -1,0 +1,63 @@
+
+<!-- saved from url=(0038)https://ap.dekidas.com/questions/17449 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="./source-code-pro.js.ダウンロード"></script>
+  <link href="./css" rel="stylesheet">
+  <style>
+      img {
+          max-width: 100%;
+      }
+
+      body {
+          width: 95%;
+          line-height: 31px;
+          -webkit-text-size-adjust: 100%;
+      }
+
+      .test-tables tr td {
+          line-height: 45px;
+      }
+
+      .test-tables tr td img {
+          height: 45px !important;
+          width: unset !important;
+          vertical-align: top;
+      }
+  </style>
+</head>
+
+<body marginwidth="0" marginheight="0">
+<div style="height: 5px;"></div>
+<div class="question-body">
+  双方向リストを三つの一次元配列<span style="font-family:&#39;Source Code Pro&#39;">elem[i]</span>，<span style="font-family:&#39;Source Code Pro&#39;">next[i]</span>，<span style="font-family:&#39;Source Code Pro&#39;">prev[i]</span>の組で実現する。双方向リストが図の状態のとき，要素Dの次に要素Cを挿入した後の<span style="font-family:&#39;Source Code Pro&#39;">next[6]</span>，<span style="font-family:&#39;Source Code Pro&#39;">prev[6]</span>の値の組合せはどれか。ここで，双方向リストは次のように表現する。<br>
+<br>
+・双方向リストの要素は，<span style="font-family:&#39;Source Code Pro&#39;">elem[i]</span>に値，<span style="font-family:&#39;Source Code Pro&#39;">next[i]</span>に次の要素の要素番号，<span style="font-family:&#39;Source Code Pro&#39;">prev[i]</span>に前の要素の要素番号を設定<br>
+・双方向リストの先頭，末尾の要素番号は，それぞれ変数<span style="font-family:&#39;Source Code Pro&#39;">Head</span>，<span style="font-family:&#39;Source Code Pro&#39;">Tail</span>に設定<br>
+・<span style="font-family:&#39;Source Code Pro&#39;">next[i]</span>，<span style="font-family:&#39;Source Code Pro&#39;">prev[i]</span>の値が0である要素は，それぞれ双方向リストの末尾，先頭を表す。<br>
+・双方向リストへの要素の追加は，一次元配列の末尾に追加<br>
+<br>
+<img src="./AP2023AA005-01.gif" align="middle" onload="this.width = this.width*0.5" width="375"><br>
+<br>
+<img src="./AP2023AA005-02.gif" align="middle" onload="this.width = this.width*0.5" width="244"><br>
+<br>
+<br>
+
+</div>
+
+<script>
+    window.onload = function () {
+        if (window.matchMedia && window.matchMedia('(max-device-width: 1024px)').matches) {
+            var images = document.getElementsByTagName("img")
+            for (var i = 0; i < images.length; i++) {
+                var image = images[i];
+                var re = /\d+(\.\d+)?/
+                var matches = image.onload.toString().match(re);
+                var rate = parseFloat(matches[0])
+                image.width = image.naturalWidth * 0.9 * rate;
+            }
+        }
+    }
+</script>
+
+</body></html>

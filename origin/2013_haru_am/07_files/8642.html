@@ -1,0 +1,65 @@
+
+<!-- saved from url=(0037)https://ap.dekidas.com/questions/8642 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="./source-code-pro.js.ダウンロード"></script>
+  <link href="./css" rel="stylesheet">
+  <style>
+      img {
+          max-width: 100%;
+      }
+
+      body {
+          width: 95%;
+          line-height: 31px;
+          -webkit-text-size-adjust: 100%;
+      }
+
+      .test-tables tr td {
+          line-height: 45px;
+      }
+
+      .test-tables tr td img {
+          height: 45px !important;
+          width: unset !important;
+          vertical-align: top;
+      }
+  </style>
+</head>
+
+<body marginwidth="0" marginheight="0">
+<div style="height: 5px;"></div>
+<div class="question-body">
+  配列<i>A</i>に対して次の手続を実行して，2≦<i>k</i>≦100である素数<i>k</i>だけを全て出力したい。a，b，cに入るループの初期値，終値，増分として，適切な組合せはどれか。<br>
+<br>
+for <i>k</i>＝ 2 to 100 step 1:<br>
+　　　　<i>A</i>[<i>k</i>]＝ 1;<br>
+for <i>m</i> ＝ 2 to l0 step 1:<br>
+　　　　for <i>k</i> ＝ <span style="border: 1px solid #000000">&nbsp;&nbsp;&nbsp;a&nbsp;&nbsp;&nbsp;</span> to <span style="border: 1px solid #000000">&nbsp;&nbsp;&nbsp;b&nbsp;&nbsp;&nbsp;</span> step <span style="border: 1px solid #000000">&nbsp;&nbsp;&nbsp;c&nbsp;&nbsp;&nbsp;</span>：<br>
+　　　　<i>A</i>[<i>k</i>]＝ 0;<br>
+for <i>k</i> ＝ 2 to 100 step 1:<br>
+　　　　 if<i>A</i>[<i>k</i>]≠0:<br>
+　　　　print <i>k</i>;<br>
+<br>
+<img src="./AP2013SA007-01.gif" align="middle" onload="this.width = this.width*0.4" width="180"><br>
+<br>
+<br>
+
+</div>
+
+<script>
+    window.onload = function () {
+        if (window.matchMedia && window.matchMedia('(max-device-width: 1024px)').matches) {
+            var images = document.getElementsByTagName("img")
+            for (var i = 0; i < images.length; i++) {
+                var image = images[i];
+                var re = /\d+(\.\d+)?/
+                var matches = image.onload.toString().match(re);
+                var rate = parseFloat(matches[0])
+                image.width = image.naturalWidth * 0.9 * rate;
+            }
+        }
+    }
+</script>
+
+</body></html>

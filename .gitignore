@@ -1,0 +1,8 @@
+origin/**.ダウンロード
+origin\**.css
+origin\**.png
+origin/**/*.ダウンロード
+origin/**/*.css
+origin/**/*.png
+origin/**/css
+origin/**/loading-*

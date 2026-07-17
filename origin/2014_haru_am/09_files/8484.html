@@ -1,0 +1,61 @@
+
+<!-- saved from url=(0037)https://ap.dekidas.com/questions/8484 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="./source-code-pro.js.ダウンロード"></script>
+  <link href="./css" rel="stylesheet">
+  <style>
+      img {
+          max-width: 100%;
+      }
+
+      body {
+          width: 95%;
+          line-height: 31px;
+          -webkit-text-size-adjust: 100%;
+      }
+
+      .test-tables tr td {
+          line-height: 45px;
+      }
+
+      .test-tables tr td img {
+          height: 45px !important;
+          width: unset !important;
+          vertical-align: top;
+      }
+  </style>
+</head>
+
+<body marginwidth="0" marginheight="0">
+<div style="height: 5px;"></div>
+<div class="question-body">
+  メイン処理，及び表に示す二つの割込みA，Bの処理があり，多重割込みが許可されている。割込みA，Bが図のタイミングで発生するとき，0ミリ秒から5ミリ秒までの間にメイン処理が利用できるCPU時間は何ミリ秒か。ここで，割込み処理の呼出し及び復帰に伴うオーバヘッドは無視できるものとする。<br>
+<br>
+<img src="./AP2014SA009-01.gif" align="middle" onload="this.width = this.width*0.4" width="342"><br>
+<br>
+ア　2<br>
+イ　2.5<br>
+ウ　3.5<br>
+エ　5<br>
+<br>
+<br>
+
+</div>
+
+<script>
+    window.onload = function () {
+        if (window.matchMedia && window.matchMedia('(max-device-width: 1024px)').matches) {
+            var images = document.getElementsByTagName("img")
+            for (var i = 0; i < images.length; i++) {
+                var image = images[i];
+                var re = /\d+(\.\d+)?/
+                var matches = image.onload.toString().match(re);
+                var rate = parseFloat(matches[0])
+                image.width = image.naturalWidth * 0.9 * rate;
+            }
+        }
+    }
+</script>
+
+</body></html>

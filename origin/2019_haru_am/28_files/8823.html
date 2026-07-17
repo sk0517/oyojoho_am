@@ -1,0 +1,70 @@
+
+<!-- saved from url=(0037)https://ap.dekidas.com/questions/8823 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="./source-code-pro.js.ダウンロード"></script>
+  <link href="./css" rel="stylesheet">
+  <style>
+      img {
+          max-width: 100%;
+      }
+
+      body {
+          width: 95%;
+          line-height: 31px;
+          -webkit-text-size-adjust: 100%;
+      }
+
+      .test-tables tr td {
+          line-height: 45px;
+      }
+
+      .test-tables tr td img {
+          height: 45px !important;
+          width: unset !important;
+          vertical-align: top;
+      }
+  </style>
+</head>
+
+<body marginwidth="0" marginheight="0">
+<div style="height: 5px;"></div>
+<div class="question-body">
+  過去3年分の記録を保存している“試験結果”表から，2018年度の平均点数が600点以上となったクラスのクラス名と平均点数の一覧を取得するSQL文はどれか。ここで，実線の下線は主キーを表す。<br>
+<br>
+　　　　試験結果（<span style="text-decoration:underline;">学生番号</span>，<span style="text-decoration:underline;">受験年月日</span>，点数，クラス名）<br>
+<br>
+ア　<span style="font-family:&#39;Source Code Pro&#39;">SELECT クラス名, AVG(点数) FROM 試験結果</span><br>
+　　　　<span style="font-family:&#39;Source Code Pro&#39;">GROUP BY クラス名 HAVING AVG(点数) &gt;= 600</span><br>
+イ　<span style="font-family:&#39;Source Code Pro&#39;">SELECT クラス名, AVG(点数) FROM 試験結果</span><br>
+　　　　<span style="font-family:&#39;Source Code Pro&#39;">WHERE 受験年月日 BETWEEN '2018-04-01' AND '2019-03-31'</span><br>
+　　　　<span style="font-family:&#39;Source Code Pro&#39;">GROUP BY クラス名 HAVING AVG(点数) &gt;= 600</span><br>
+ウ　<span style="font-family:&#39;Source Code Pro&#39;">SELECT クラス名, AVG(点数) FROM 試験結果</span><br>
+　　　　<span style="font-family:&#39;Source Code Pro&#39;">WHERE 受験年月日 BETWEEN '2018-04-01' AND '2019-03-31'</span><br>
+　　　　<span style="font-family:&#39;Source Code Pro&#39;">GROUP BY クラス名 HAVING 点数 &gt;= 600</span><br>
+エ　<span style="font-family:&#39;Source Code Pro&#39;">SELECT クラス名, AVG(点数) FROM 試験結果</span><br>
+　　　　<span style="font-family:&#39;Source Code Pro&#39;">WHERE 点数 &gt;= 600</span><br>
+　　　　<span style="font-family:&#39;Source Code Pro&#39;">GROUP BY クラス名</span><br>
+　　　　<span style="font-family:&#39;Source Code Pro&#39;">HAVING (MAX(受験年月日)</span><br>
+　　　　　　　　<span style="font-family:&#39;Source Code Pro&#39;">BETWEEN '2018-04-01' AND '2019-03-31')</span><br>
+<br>
+<br>
+
+</div>
+
+<script>
+    window.onload = function () {
+        if (window.matchMedia && window.matchMedia('(max-device-width: 1024px)').matches) {
+            var images = document.getElementsByTagName("img")
+            for (var i = 0; i < images.length; i++) {
+                var image = images[i];
+                var re = /\d+(\.\d+)?/
+                var matches = image.onload.toString().match(re);
+                var rate = parseFloat(matches[0])
+                image.width = image.naturalWidth * 0.9 * rate;
+            }
+        }
+    }
+</script>
+
+</body></html>

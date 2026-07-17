@@ -1,0 +1,70 @@
+
+<!-- saved from url=(0037)https://ap.dekidas.com/questions/8264 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="./source-code-pro.js.ダウンロード"></script>
+  <link href="./css" rel="stylesheet">
+  <style>
+      img {
+          max-width: 100%;
+      }
+
+      body {
+          width: 95%;
+          line-height: 31px;
+          -webkit-text-size-adjust: 100%;
+      }
+
+      .test-tables tr td {
+          line-height: 45px;
+      }
+
+      .test-tables tr td img {
+          height: 45px !important;
+          width: unset !important;
+          vertical-align: top;
+      }
+  </style>
+</head>
+
+<body marginwidth="0" marginheight="0">
+<div style="height: 5px;"></div>
+<div class="question-body">
+  “倉庫別商品在庫集計”表から在庫数の合計を求めたい。倉庫番号'C003'の倉庫で在庫数が100以上の商品に対して，全ての倉庫における在庫数の合計を求めるSQL文のaに入る適切な字句はどれか。ここで，該当する商品は複数存在するとともに在庫数が100未満の商品も存在するものとする。また，実線の下線は主キーを表す。<br>
+<br>
+倉庫別商品在庫集計（<span style="text-decoration:underline;">倉庫番号</span>，<span style="text-decoration:underline;">商品コード</span>，在庫数）<br>
+<br>
+〔SQL文〕<br>
+　　　　<span style="font-family:&#39;Source Code Pro&#39;">SELECT 商品コード, SUM(在庫数) AS 在庫合計 FROM 倉庫別商品在庫集計</span><br>
+　　　　　　　　<span style="font-family:&#39;Source Code Pro&#39;">WHERE</span> <span style="border: 1px solid #000000">&nbsp;&nbsp;&nbsp;a&nbsp;&nbsp;&nbsp;</span><br>
+　　　　　　　　<span style="font-family:&#39;Source Code Pro&#39;">GROUP BY 商品コード</span><br>
+<br>
+ア　<span style="font-family:&#39;Source Code Pro&#39;">商品コード = (SELECT 商品コード </span>FROM<span style="font-family:&#39;Source Code Pro&#39;"> 倉庫別商品在庫集計</span><br>
+　　　　<span style="font-family:&#39;Source Code Pro&#39;">WHERE 倉庫番号 = 'C003' AND 在庫数 &gt;= 100)</span><br>
+イ　<span style="font-family:&#39;Source Code Pro&#39;">商品コード = ALL (SELECT 商品コード FROM 倉庫別商品在庫集計</span><br>
+　　　　<span style="font-family:&#39;Source Code Pro&#39;">WHERE 倉庫番号 = 'C003' AND 在庫数 &gt;= 100)</span><br>
+ウ　<span style="font-family:&#39;Source Code Pro&#39;">商品コード　IN (SELECT 商品コード FROM 倉庫別商品在庫集計</span><br>
+　　　　<span style="font-family:&#39;Source Code Pro&#39;">WHERE 倉庫番号 = 'C003' AND 在庫数 &gt;= 100)</span><br>
+エ　<span style="font-family:&#39;Source Code Pro&#39;">EXISTS (SELECT * FROM 倉庫別商品在庫集計</span><br>
+　　　　<span style="font-family:&#39;Source Code Pro&#39;">WHERE 倉庫番号 = 'C003' AND 在庫数 &gt;= 100)</span><br>
+<br>
+<br>
+
+</div>
+
+<script>
+    window.onload = function () {
+        if (window.matchMedia && window.matchMedia('(max-device-width: 1024px)').matches) {
+            var images = document.getElementsByTagName("img")
+            for (var i = 0; i < images.length; i++) {
+                var image = images[i];
+                var re = /\d+(\.\d+)?/
+                var matches = image.onload.toString().match(re);
+                var rate = parseFloat(matches[0])
+                image.width = image.naturalWidth * 0.9 * rate;
+            }
+        }
+    }
+</script>
+
+</body></html>

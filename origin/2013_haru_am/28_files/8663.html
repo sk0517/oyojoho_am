@@ -1,0 +1,61 @@
+
+<!-- saved from url=(0037)https://ap.dekidas.com/questions/8663 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="./source-code-pro.js.ダウンロード"></script>
+  <link href="./css" rel="stylesheet">
+  <style>
+      img {
+          max-width: 100%;
+      }
+
+      body {
+          width: 95%;
+          line-height: 31px;
+          -webkit-text-size-adjust: 100%;
+      }
+
+      .test-tables tr td {
+          line-height: 45px;
+      }
+
+      .test-tables tr td img {
+          height: 45px !important;
+          width: unset !important;
+          vertical-align: top;
+      }
+  </style>
+</head>
+
+<body marginwidth="0" marginheight="0">
+<div style="height: 5px;"></div>
+<div class="question-body">
+  “プログラマは全て社員であり，社員の約10％を占める。社員は社員番号と氏名をもち，職種がプログラマである場合は，使用できるプログラム言語を一つ以上もつ。”という状況を記録するデータベース設計案として，適切なものはどれか。ここで，実線の下線は主キーを，破線の下線は外部キーを表す。<br>
+<br>
+ア　社員（<span style="text-decoration:underline;">社員番号</span>，氏名，職種，プログラム言語）<br>
+イ　社員（<span style="text-decoration:underline;">社員番号</span>，氏名，プログラム言語）<br>
+ウ　社員（<span style="text-decoration:underline;">社員番号</span>，氏名）<br>
+　　プログラマ（<span style="text-decoration:underline;"><span style="border-bottom: dashed 1px;">社員番号</span></span>，プログラム言語）<br>
+エ　社員（<span style="text-decoration:underline;">社員番号</span>，氏名）<br>
+　　プログラマ（<span style="text-decoration:underline;"><span style="border-bottom: dashed 1px;">社員番号</span></span>，<span style="text-decoration:underline;">プログラム言語</span>）<br>
+<br>
+<br>
+
+</div>
+
+<script>
+    window.onload = function () {
+        if (window.matchMedia && window.matchMedia('(max-device-width: 1024px)').matches) {
+            var images = document.getElementsByTagName("img")
+            for (var i = 0; i < images.length; i++) {
+                var image = images[i];
+                var re = /\d+(\.\d+)?/
+                var matches = image.onload.toString().match(re);
+                var rate = parseFloat(matches[0])
+                image.width = image.naturalWidth * 0.9 * rate;
+            }
+        }
+    }
+</script>
+
+</body></html>

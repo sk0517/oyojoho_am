@@ -1,0 +1,67 @@
+
+<!-- saved from url=(0037)https://ap.dekidas.com/questions/8343 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="./source-code-pro.js.ダウンロード"></script>
+  <link href="./css" rel="stylesheet">
+  <style>
+      img {
+          max-width: 100%;
+      }
+
+      body {
+          width: 95%;
+          line-height: 31px;
+          -webkit-text-size-adjust: 100%;
+      }
+
+      .test-tables tr td {
+          line-height: 45px;
+      }
+
+      .test-tables tr td img {
+          height: 45px !important;
+          width: unset !important;
+          vertical-align: top;
+      }
+  </style>
+</head>
+
+<body marginwidth="0" marginheight="0">
+<div style="height: 5px;"></div>
+<div class="question-body">
+  “学生”表が次のSQL文で定義されているとき，検査制約の違反となるSQL文はどれか。<br>
+<br>
+<span style="font-family:&#39;Source Code Pro&#39;">CREATE TABLE 学生(学生番号 CHAR(5) PRIMARY KEY,</span><br>
+　　　　<span style="font-family:&#39;Source Code Pro&#39;">学生名 CHAR(16),</span><br>
+　　　　<span style="font-family:&#39;Source Code Pro&#39;">学部コード CHAR(4),</span><br>
+　　　　<span style="font-family:&#39;Source Code Pro&#39;">住所 CHAR(16),</span><br>
+　　　　<span style="font-family:&#39;Source Code Pro&#39;">CHECK (学生番号 LIKE 'K%'))</span><br>
+<br>
+<img src="./AP2015SA028-01.gif" align="middle" onload="this.width = this.width*0.4" width="312"><br>
+<br>
+ア　<span style="font-family:&#39;Source Code Pro&#39;">DELETE FROM 学生 WHERE 学生番号 = 'K1002'</span><br>
+イ　<span style="font-family:&#39;Source Code Pro&#39;">INSERT INTO 学生 VALUES ('J2002','渡辺次郎','M006','東京都')</span><br>
+ウ　<span style="font-family:&#39;Source Code Pro&#39;">SELECT * FROM 学生 WHERE 学生番号 = 'K1001'</span><br>
+エ　<span style="font-family:&#39;Source Code Pro&#39;">UPDATE 学生 SET 学部コード = 'N001' WHERE 学生番号 LIKE 'K%'</span><br>
+<br>
+<br>
+
+</div>
+
+<script>
+    window.onload = function () {
+        if (window.matchMedia && window.matchMedia('(max-device-width: 1024px)').matches) {
+            var images = document.getElementsByTagName("img")
+            for (var i = 0; i < images.length; i++) {
+                var image = images[i];
+                var re = /\d+(\.\d+)?/
+                var matches = image.onload.toString().match(re);
+                var rate = parseFloat(matches[0])
+                image.width = image.naturalWidth * 0.9 * rate;
+            }
+        }
+    }
+</script>
+
+</body></html>

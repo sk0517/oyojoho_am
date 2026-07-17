@@ -1,0 +1,62 @@
+
+<!-- saved from url=(0037)https://ap.dekidas.com/questions/8344 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="./source-code-pro.js.ダウンロード"></script>
+  <link href="./css" rel="stylesheet">
+  <style>
+      img {
+          max-width: 100%;
+      }
+
+      body {
+          width: 95%;
+          line-height: 31px;
+          -webkit-text-size-adjust: 100%;
+      }
+
+      .test-tables tr td {
+          line-height: 45px;
+      }
+
+      .test-tables tr td img {
+          height: 45px !important;
+          width: unset !important;
+          vertical-align: top;
+      }
+  </style>
+</head>
+
+<body marginwidth="0" marginheight="0">
+<div style="height: 5px;"></div>
+<div class="question-body">
+  “部品”表のメーカコード列に対し，B<sup>＋</sup>木インデックスを作成した。これによって，“部品”表の検索の性能改善が最も期待できる操作はどれか。ここで，部品及びメーカのデータ件数は十分に多く，メーカコードの値は均一に分散されているものとする。また，“部品”表のごく少数の行には，メーカコード列にNULLが設定されている。ここで，実線の下線は主キーを，破線の下線は外部キーを表す。<br>
+<br>
+　部品（<span style="text-decoration:underline;">部品コード</span>，部品名，<span style="border-bottom: dashed 1px;">メーカコード</span>）<br>
+　メーカ（<span style="text-decoration:underline;">メーカコード</span>，メーカ名，住所）<br>
+<br>
+ア　メーカコードの値が1001以外の部品を検索する。<br>
+イ　メーカコードの値が1001でも4001でもない部品を検索する。<br>
+ウ　メーカコードの値が4001以上，4003以下の部品を検索する。<br>
+エ　メーカコードの値がNULL以外の部品を検索する。<br>
+<br>
+<br>
+
+</div>
+
+<script>
+    window.onload = function () {
+        if (window.matchMedia && window.matchMedia('(max-device-width: 1024px)').matches) {
+            var images = document.getElementsByTagName("img")
+            for (var i = 0; i < images.length; i++) {
+                var image = images[i];
+                var re = /\d+(\.\d+)?/
+                var matches = image.onload.toString().match(re);
+                var rate = parseFloat(matches[0])
+                image.width = image.naturalWidth * 0.9 * rate;
+            }
+        }
+    }
+</script>
+
+</body></html>

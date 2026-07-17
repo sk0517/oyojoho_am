@@ -1,0 +1,70 @@
+
+<!-- saved from url=(0038)https://ap.dekidas.com/questions/13240 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="./source-code-pro.js.ダウンロード"></script>
+  <link href="./css" rel="stylesheet">
+  <style>
+      img {
+          max-width: 100%;
+      }
+
+      body {
+          width: 95%;
+          line-height: 31px;
+          -webkit-text-size-adjust: 100%;
+      }
+
+      .test-tables tr td {
+          line-height: 45px;
+      }
+
+      .test-tables tr td img {
+          height: 45px !important;
+          width: unset !important;
+          vertical-align: top;
+      }
+  </style>
+</head>
+
+<body marginwidth="0" marginheight="0">
+<div style="height: 5px;"></div>
+<div class="question-body">
+  関係“注文記録”の属性間に①～⑥の関数従属性があり，それに基づいて第3正規形まで正規化を行って，“商品”，“顧客”，“注文”，“注文明細”の各関係に分解した。関係“注文明細”として，適切なものはどれか。ここで，{<i>X</i>，<i>Y</i>}は，属性<i>X</i>と<i>Y</i>の組みを表し，<i>X</i>→<i>Y</i>は，<i>X</i>が<i>Y</i>を関数的に決定することを表す。また，実線の下線は主キーを表す。<br>
+<br>
+　　　　注文記録（注文番号，注文日，顧客番号，顧客名，商品番号，商品名，<br>
+　　　　　　　　　数量，販売単価）<br>
+<br>
+〔関数従属性〕<br>
+①　注文番号→注文日<br>
+②　注文番号→顧客番号<br>
+③　顧客番号→顧客名<br>
+④　{注文番号，商品番号}→数量<br>
+⑤　{注文番号，商品番号}→販売単価<br>
+⑥商品番号→商品名<br>
+<br>
+ア　注文明細（<span style="text-decoration:underline;">注文番号</span>，<span style="text-decoration:underline;">顧客番号</span>，<span style="text-decoration:underline;">商品番号</span>，顧客名，数量，販売単価）<br>
+イ　注文明細（<span style="text-decoration:underline;">注文番号</span>，<span style="text-decoration:underline;">顧客番号</span>，数量，販売単価）<br>
+ウ　注文明細（<span style="text-decoration:underline;">注文番号</span>，<span style="text-decoration:underline;">商品番号</span>，数量，販売単価）<br>
+エ　注文明細（<span style="text-decoration:underline;">注文番号</span>，数量，販売単価）<br>
+<br>
+<br>
+
+</div>
+
+<script>
+    window.onload = function () {
+        if (window.matchMedia && window.matchMedia('(max-device-width: 1024px)').matches) {
+            var images = document.getElementsByTagName("img")
+            for (var i = 0; i < images.length; i++) {
+                var image = images[i];
+                var re = /\d+(\.\d+)?/
+                var matches = image.onload.toString().match(re);
+                var rate = parseFloat(matches[0])
+                image.width = image.naturalWidth * 0.9 * rate;
+            }
+        }
+    }
+</script>
+
+</body></html>

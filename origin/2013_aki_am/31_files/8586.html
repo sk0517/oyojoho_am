@@ -1,0 +1,65 @@
+
+<!-- saved from url=(0037)https://ap.dekidas.com/questions/8586 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="./source-code-pro.js.ダウンロード"></script>
+  <link href="./css" rel="stylesheet">
+  <style>
+      img {
+          max-width: 100%;
+      }
+
+      body {
+          width: 95%;
+          line-height: 31px;
+          -webkit-text-size-adjust: 100%;
+      }
+
+      .test-tables tr td {
+          line-height: 45px;
+      }
+
+      .test-tables tr td img {
+          height: 45px !important;
+          width: unset !important;
+          vertical-align: top;
+      }
+  </style>
+</head>
+
+<body marginwidth="0" marginheight="0">
+<div style="height: 5px;"></div>
+<div class="question-body">
+  地域別に分かれている同じ構造の三つの商品表，“東京商品”，“名古屋商品”，“大阪商品”がある。次のSQL文と同等の結果が得られる関係代数式はどれか。ここで，三つの商品表の主キーは“商品番号”である。<br>
+<br>
+<span style="font-family:&#39;Source Code Pro&#39;">SELECT * FROM 大阪商品</span><br>
+　　　　<span style="font-family:&#39;Source Code Pro&#39;">WHERE 商品番号 NOT IN (SELECT 商品番号 FROM 東京商品)</span><br>
+<span style="font-family:&#39;Source Code Pro&#39;">UNION</span><br>
+<span style="font-family:&#39;Source Code Pro&#39;">SELECT * FROM 名古屋商品</span><br>
+<span style="font-family:&#39;Source Code Pro&#39;">WHERE 商品番号 NOT IN (SELECT 商品番号 FROM 東京商品)</span><br>
+<br>
+ア　（大阪商品∩名古屋商品）−東京商品<br>
+イ　（大阪商品∪名古屋商品）−東京商品<br>
+ウ　東京商品−（大阪商品∩名古屋商品）<br>
+エ　東京商品−（大阪商品∪名古屋商品）<br>
+<br>
+<br>
+
+</div>
+
+<script>
+    window.onload = function () {
+        if (window.matchMedia && window.matchMedia('(max-device-width: 1024px)').matches) {
+            var images = document.getElementsByTagName("img")
+            for (var i = 0; i < images.length; i++) {
+                var image = images[i];
+                var re = /\d+(\.\d+)?/
+                var matches = image.onload.toString().match(re);
+                var rate = parseFloat(matches[0])
+                image.width = image.naturalWidth * 0.9 * rate;
+            }
+        }
+    }
+</script>
+
+</body></html>

@@ -1,0 +1,74 @@
+
+<!-- saved from url=(0038)https://ap.dekidas.com/questions/18424 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="./source-code-pro.js.ダウンロード"></script>
+  <link href="./css" rel="stylesheet">
+  <style>
+      img {
+          max-width: 100%;
+      }
+
+      body {
+          width: 95%;
+          line-height: 31px;
+          -webkit-text-size-adjust: 100%;
+      }
+
+      .test-tables tr td {
+          line-height: 45px;
+      }
+
+      .test-tables tr td img {
+          height: 45px !important;
+          width: unset !important;
+          vertical-align: top;
+      }
+  </style>
+</head>
+
+<body marginwidth="0" marginheight="0">
+<div style="height: 5px;"></div>
+<div class="question-body">
+  “成績”表に対して，SQL文1と同一の結果を得るために，SQL文2のaに入れる字句はどれか。<br>
+<br>
+<img src="./AP2024AA030-01.gif" align="middle" onload="this.width = this.width*0.5" width="310"><br>
+<br>
+〔SQL文1〕<br>
+<span style="font-family:&#39;Source Code Pro&#39;">SELECT R1.学生番号, R1.実施回, R1.得点 FROM 成績 R1</span><br>
+　　<span style="font-family:&#39;Source Code Pro&#39;">INNER JOIN</span><br>
+　　<span style="font-family:&#39;Source Code Pro&#39;">(SELECT 学生番号, MIN(実施回) AS 初回 FROM 成績</span><br>
+　　　　<span style="font-family:&#39;Source Code Pro&#39;">GROUP BY 学生番号) R2</span><br>
+　　<span style="font-family:&#39;Source Code Pro&#39;">ON R1.学生番号 = R2.学生番号</span><br>
+　　<span style="font-family:&#39;Source Code Pro&#39;">AND R1.実施回 = R2.初回</span><br>
+<br>
+〔SQL文2〕<br>
+<span style="font-family:&#39;Source Code Pro&#39;">SELECT 学生番号, 実施回, 得点</span><br>
+　　<span style="font-family:&#39;Source Code Pro&#39;">FROM (SELECT 学生番号, 実施回, 得点, ROW_NUMBER() OVER (<span style="border: 1px solid #000000">&nbsp;&nbsp;&nbsp;a&nbsp;&nbsp;&nbsp;</span>) AS 番号</span><br>
+　　　　<span style="font-family:&#39;Source Code Pro&#39;">FROM 成績) R1</span><br>
+　　<span style="font-family:&#39;Source Code Pro&#39;">WHERE R1.番号 = 1</span><br>
+<br>
+ア　<span style="font-family:&#39;Source Code Pro&#39;">ORDER BY 学生番号, 実施回</span><br>
+イ　<span style="font-family:&#39;Source Code Pro&#39;">PARTITION BY 学生番号 ORDER BY 実施回</span><br>
+ウ　<span style="font-family:&#39;Source Code Pro&#39;">PARTITION BY 学生番号 ORDER BY 得点 ASC</span><br>
+エ　<span style="font-family:&#39;Source Code Pro&#39;">PARTITION BY 学生番号 ORDER BY 得点 DESC</span><br>
+<br>
+
+</div>
+
+<script>
+    window.onload = function () {
+        if (window.matchMedia && window.matchMedia('(max-device-width: 1024px)').matches) {
+            var images = document.getElementsByTagName("img")
+            for (var i = 0; i < images.length; i++) {
+                var image = images[i];
+                var re = /\d+(\.\d+)?/
+                var matches = image.onload.toString().match(re);
+                var rate = parseFloat(matches[0])
+                image.width = image.naturalWidth * 0.9 * rate;
+            }
+        }
+    }
+</script>
+
+</body></html>

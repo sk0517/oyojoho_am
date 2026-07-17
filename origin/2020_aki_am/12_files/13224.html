@@ -1,0 +1,66 @@
+
+<!-- saved from url=(0038)https://ap.dekidas.com/questions/13224 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="./source-code-pro.js.ダウンロード"></script>
+  <link href="./css" rel="stylesheet">
+  <style>
+      img {
+          max-width: 100%;
+      }
+
+      body {
+          width: 95%;
+          line-height: 31px;
+          -webkit-text-size-adjust: 100%;
+      }
+
+      .test-tables tr td {
+          line-height: 45px;
+      }
+
+      .test-tables tr td img {
+          height: 45px !important;
+          width: unset !important;
+          vertical-align: top;
+      }
+  </style>
+</head>
+
+<body marginwidth="0" marginheight="0">
+<div style="height: 5px;"></div>
+<div class="question-body">
+  現状のHPC（High Performance Computing）マシンの構成を，次の条件で更新することにした。更新後の，ノード数と総理論ピーク演算性能はどれか。ここで，総理論ピーク演算性能は，コア数に比例するものとする。<br>
+<br>
+〔現状の構成〕<br>
+（1）一つのコアの理論ピーク演算性能は10GFLOPSである。<br>
+（2）一つのノードのコア数は8である。<br>
+（3）ノード数は1,000である。<br>
+<br>
+〔更新条件〕<br>
+（1）一つのコアの理論ピーク演算性能を現状の2倍にする。<br>
+（2）一つのノードのコア数を現状の2倍にする。<br>
+（3）総コア数を現状の4倍にする。<br>
+<br>
+<img src="./AP2020AA012-01.gif" align="middle" onload="this.width = this.width*0.4" width="342"><br>
+<br>
+<br>
+
+</div>
+
+<script>
+    window.onload = function () {
+        if (window.matchMedia && window.matchMedia('(max-device-width: 1024px)').matches) {
+            var images = document.getElementsByTagName("img")
+            for (var i = 0; i < images.length; i++) {
+                var image = images[i];
+                var re = /\d+(\.\d+)?/
+                var matches = image.onload.toString().match(re);
+                var rate = parseFloat(matches[0])
+                image.width = image.naturalWidth * 0.9 * rate;
+            }
+        }
+    }
+</script>
+
+</body></html>

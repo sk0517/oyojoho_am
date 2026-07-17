@@ -1,0 +1,63 @@
+
+<!-- saved from url=(0038)https://ap.dekidas.com/questions/17472 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="./source-code-pro.js.ダウンロード"></script>
+  <link href="./css" rel="stylesheet">
+  <style>
+      img {
+          max-width: 100%;
+      }
+
+      body {
+          width: 95%;
+          line-height: 31px;
+          -webkit-text-size-adjust: 100%;
+      }
+
+      .test-tables tr td {
+          line-height: 45px;
+      }
+
+      .test-tables tr td img {
+          height: 45px !important;
+          width: unset !important;
+          vertical-align: top;
+      }
+  </style>
+</head>
+
+<body marginwidth="0" marginheight="0">
+<div style="height: 5px;"></div>
+<div class="question-body">
+  更新可能なビューを作成するSQL文はどれか。ここで，SQL文中に現れる基底表は全て更新可能とする。<br>
+<br>
+ア　<span style="font-family:&#39;Source Code Pro&#39;">CREATE VIEW 高額商品(商品番号, 商品名, 商品単価)</span><br>
+　　<span style="font-family:&#39;Source Code Pro&#39;">AS SELECT 商品番号, 商品名, 商品単価 FROM 商品 WHERE 商品単価 &gt; 1000</span><br>
+イ　<span style="font-family:&#39;Source Code Pro&#39;">CREATE VIEW 受注商品(商品番号)</span><br>
+　　<span style="font-family:&#39;Source Code Pro&#39;">AS SELECT DISTINCT 商品番号 FROM 受注</span><br>
+ウ　<span style="font-family:&#39;Source Code Pro&#39;">CREATE VIEW 商品受注(商品番号, 受注数量)</span><br>
+　　<span style="font-family:&#39;Source Code Pro&#39;">AS SELECT 商品番号, SUM(受注数量) FROM 受注 GROUP BY 商品番号</span><br>
+エ　<span style="font-family:&#39;Source Code Pro&#39;">CREATE VIEW 商品平均受注数量(平均受注数量)</span><br>
+　　<span style="font-family:&#39;Source Code Pro&#39;">AS SELECT AVG(受注数量) FROM 受注</span><br>
+<br>
+<br>
+
+</div>
+
+<script>
+    window.onload = function () {
+        if (window.matchMedia && window.matchMedia('(max-device-width: 1024px)').matches) {
+            var images = document.getElementsByTagName("img")
+            for (var i = 0; i < images.length; i++) {
+                var image = images[i];
+                var re = /\d+(\.\d+)?/
+                var matches = image.onload.toString().match(re);
+                var rate = parseFloat(matches[0])
+                image.width = image.naturalWidth * 0.9 * rate;
+            }
+        }
+    }
+</script>
+
+</body></html>

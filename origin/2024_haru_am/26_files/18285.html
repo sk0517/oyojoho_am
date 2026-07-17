@@ -1,0 +1,71 @@
+
+<!-- saved from url=(0038)https://ap.dekidas.com/questions/18285 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="./source-code-pro.js.ダウンロード"></script>
+  <link href="./css" rel="stylesheet">
+  <style>
+      img {
+          max-width: 100%;
+      }
+
+      body {
+          width: 95%;
+          line-height: 31px;
+          -webkit-text-size-adjust: 100%;
+      }
+
+      .test-tables tr td {
+          line-height: 45px;
+      }
+
+      .test-tables tr td img {
+          height: 45px !important;
+          width: unset !important;
+          vertical-align: top;
+      }
+  </style>
+</head>
+
+<body marginwidth="0" marginheight="0">
+<div style="height: 5px;"></div>
+<div class="question-body">
+  “部品”表及び“在庫”表に対し，SQL文を実行して結果を得た。SQL文のaに入れる字句はどれか。<br>
+<br>
+<img src="./AP2024SA026-01a.gif" align="middle" onload="this.width = this.width*0.5" width="428"><br>
+<br>
+<img src="./AP2024SA026-01b.gif" align="middle" onload="this.width = this.width*0.5" width="192"><br>
+<br>
+〔SQL文〕<br>
+<span style="font-family:&#39;Source Code Pro&#39;">　SELECT 部品.部品 ID AS 部品 ID,</span><br>
+<span style="font-family:&#39;Source Code Pro&#39;">　　　CASE WHEN 部品.発注点 &gt;</span>　<span style="border: 1px solid #000000">&nbsp;&nbsp;&nbsp;a&nbsp;&nbsp;&nbsp;</span><br>
+<span style="font-family:&#39;Source Code Pro&#39;">　　　　　THEN N'必要' ELSE N'不要' END AS 発注要否</span><br>
+<span style="font-family:&#39;Source Code Pro&#39;">　FROM 部品 LEFT OUTER JOIN 在庫</span><br>
+<span style="font-family:&#39;Source Code Pro&#39;">　　　ON 部品.部品 ID = 在庫.部品 ID</span><br>
+<span style="font-family:&#39;Source Code Pro&#39;">　GROUP BY 部品.部品 ID, 部品.発注点</span><br>
+<br>
+ア　<span style="font-family:&#39;Source Code Pro&#39;">COALESCE（MIN（在庫.在庫数）, 0）</span><br>
+イ　<span style="font-family:&#39;Source Code Pro&#39;">COALESCE（MIN（在庫.在庫数）, NULL）</span><br>
+ウ　<span style="font-family:&#39;Source Code Pro&#39;">COALESCE（SUM（在庫.在庫数）, 0）</span><br>
+エ　<span style="font-family:&#39;Source Code Pro&#39;">COALESCE（SUM（在庫.在庫数）, NULL）</span><br>
+<br>
+<br>
+
+</div>
+
+<script>
+    window.onload = function () {
+        if (window.matchMedia && window.matchMedia('(max-device-width: 1024px)').matches) {
+            var images = document.getElementsByTagName("img")
+            for (var i = 0; i < images.length; i++) {
+                var image = images[i];
+                var re = /\d+(\.\d+)?/
+                var matches = image.onload.toString().match(re);
+                var rate = parseFloat(matches[0])
+                image.width = image.naturalWidth * 0.9 * rate;
+            }
+        }
+    }
+</script>
+
+</body></html>

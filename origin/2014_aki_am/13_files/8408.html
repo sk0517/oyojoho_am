@@ -1,0 +1,68 @@
+
+<!-- saved from url=(0037)https://ap.dekidas.com/questions/8408 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="./source-code-pro.js.ダウンロード"></script>
+  <link href="./css" rel="stylesheet">
+  <style>
+      img {
+          max-width: 100%;
+      }
+
+      body {
+          width: 95%;
+          line-height: 31px;
+          -webkit-text-size-adjust: 100%;
+      }
+
+      .test-tables tr td {
+          line-height: 45px;
+      }
+
+      .test-tables tr td img {
+          height: 45px !important;
+          width: unset !important;
+          vertical-align: top;
+      }
+  </style>
+</head>
+
+<body marginwidth="0" marginheight="0">
+<div style="height: 5px;"></div>
+<div class="question-body">
+  次の条件で運転するクライアントサーバシステムにおいて，ネットワークに必要な転送速度は，最低何ビット／秒か。<br>
+<br>
+〔条件〕<br>
+（1）　トランザクション1件の平均的な処理は，CPU命令300万ステップとデータ入出力40回で構成され，ネットワークで転送されるデータは送受信それぞれ1,000バイトである。<br>
+（2）　サーバでのCPU命令1ステップの平均実行時間は300ナノ秒である。<br>
+（3）　データ入出力は1回平均20ミリ秒で処理されている。<br>
+（4）　1バイトは8ビットとする。<br>
+（5）　クライアントにおけるデータの送信開始から受信完了までに許容される時間は2.5秒である。<br>
+（6）　サーバは1CPU，1コアで構成されている。<br>
+（7）　待ち時間及びその他のオーバヘッドは考慮しない。<br>
+<br>
+ア　10,000<br>
+イ　16,000<br>
+ウ　20,000<br>
+エ　25,000<br>
+<br>
+<br>
+
+</div>
+
+<script>
+    window.onload = function () {
+        if (window.matchMedia && window.matchMedia('(max-device-width: 1024px)').matches) {
+            var images = document.getElementsByTagName("img")
+            for (var i = 0; i < images.length; i++) {
+                var image = images[i];
+                var re = /\d+(\.\d+)?/
+                var matches = image.onload.toString().match(re);
+                var rate = parseFloat(matches[0])
+                image.width = image.naturalWidth * 0.9 * rate;
+            }
+        }
+    }
+</script>
+
+</body></html>
