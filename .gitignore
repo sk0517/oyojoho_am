@@ -6,3 +6,6 @@ origin/**/*.css
 origin/**/*.png
 origin/**/css
 origin/**/loading-*
+
+__pycache__/
+*.pyc

@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>応用情報 午前問題ビューア</title>
+<link rel="stylesheet" href="katex/katex.min.css">
 <style>
   :root {
     --bg: #f5f6f8;
@@ -274,7 +275,24 @@
 <footer>全21期 1680問収録</footer>
 
 <script src="data.js"></script>
+<script src="katex/katex.min.js"></script>
+<script src="katex/auto-render.min.js"></script>
 <script>
+  function renderMath(el) {
+    if (window.renderMathInElement) {
+      try {
+        renderMathInElement(el, {
+          delimiters: [
+            { left: '$$', right: '$$', display: true },
+            { left: '$', right: '$', display: false },
+          ],
+          throwOnError: false,
+          errorColor: '#c0392b',
+        });
+      } catch (e) { /* leave text as-is */ }
+    }
+  }
+
   const state = {
     periodIndex: 0,
     order: [],   // array of question indices within current period, defines display order (post-filter)
@@ -455,6 +473,7 @@
       ${q.tags ? `<span>タグ: ${q.tags}</span>` : ''}
     `;
     qtext.textContent = q.question;
+    renderMath(qtext);
 
     imagesEl.innerHTML = '';
     (q.images || []).forEach(src => {
@@ -491,6 +510,7 @@
       .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
       .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
     answerBox.innerHTML = html;
+    renderMath(answerBox);
     answerBox.classList.add('show');
     revealBtn.disabled = true;
     revealBtn.textContent = '解答表示済み';
