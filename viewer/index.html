@@ -96,6 +96,11 @@
     font-size: 15.5px;
     margin-bottom: 12px;
   }
+  /* 破線の下線（外部キー）。実線の <u> は主キー */
+  u.dashed {
+    text-decoration: none;
+    border-bottom: 1px dashed currentColor;
+  }
   .images img {
     max-width: 100%;
     border: 1px solid var(--border);
@@ -283,6 +288,7 @@
     return (raw || '')
       .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
       .replace(/\*\*([^*]+?)\*\*/g, '<strong>$1</strong>')
+      .replace(/&lt;u class="dashed"&gt;/g, '<u class="dashed">')
       .replace(/&lt;(\/?)(u|sub|sup)&gt;/g, '<$1$2>');
   }
 

@@ -103,8 +103,11 @@ def tokenize(html):
         m = re.match(r'<span[^>]*overline[^>]*>(.*?)</span>', html[i:], re.S)
         if m:
             toks.append(("anchor", r"\overline{" + tex_inline(m.group(1)) + "}")); i += m.end(); continue
+        m = re.match(r'<span[^>]*border-bottom:\s*dashed[^>]*>(.*?)</span>', html[i:], re.S)
+        if m:  # 破線の下線（外部キー） → <u class="dashed">
+            toks.append(("raw", '<u class="dashed">' + plain_text(m.group(1)) + "</u>")); i += m.end(); continue
         m = re.match(r'<span[^>]*underline[^>]*>(.*?)</span>', html[i:], re.S)
-        if m:  # 下線 → <u>（数式ではなくテキスト装飾）
+        if m:  # 実線の下線 → <u>（数式ではなくテキスト装飾）
             toks.append(("raw", "<u>" + plain_text(m.group(1)) + "</u>")); i += m.end(); continue
         m = re.match(r"<sup>(.*?)</sup>", html[i:], re.S)
         if m:
