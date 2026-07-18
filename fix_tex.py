@@ -109,6 +109,9 @@ def tokenize(html):
         m = re.match(r'<span[^>]*underline[^>]*>(.*?)</span>', html[i:], re.S)
         if m:  # 実線の下線 → <u>（数式ではなくテキスト装飾）
             toks.append(("raw", "<u>" + plain_text(m.group(1)) + "</u>")); i += m.end(); continue
+        m = re.match(r'<span[^>]*style="[^"]*\bborder:\s[^"]*"[^>]*>(.*?)</span>', html[i:], re.S)
+        if m:  # 枠囲み（空欄の四角） → [　a　] 表記
+            toks.append(("text", "[　" + plain_text(m.group(1)) + "　]")); i += m.end(); continue
         m = re.match(r"<sup>(.*?)</sup>", html[i:], re.S)
         if m:
             if _is_math_base(toks[-1] if toks else None):
@@ -128,21 +131,24 @@ def tokenize(html):
             toks.append(("anchor", tex_inline(m.group(1)))); i += m.end(); continue
         if html[i] == "<":
             j = html.find(">", i); i = (j + 1) if j >= 0 else i + 1; continue
-        ch = html[i]; i += 1
-        # decode entity boundary handled later; classify char
-        if ch in OPS:
-            toks.append(("glue", ch, OPS[ch]))
-        elif ch in GREEK:
-            toks.append(("anchor2", GREEK[ch], ch))   # greek: anchor but keep orig if text
-        elif ch in ASCII_OP:
-            toks.append(("glue", ch, ch))
-        elif ch in GLUE_EXTRA:
-            toks.append(("glue", ch, ch))
-        elif re.match(r"[A-Za-z]", ch):
-            toks.append(("glue", ch, ch))            # ASCII letter = glue (not anchor)
-        else:
-            toks.append(("text", ch))
+        # HTML 実体参照を復元（&gt; &lt; &nbsp; &#39; など）。復元後の文字は内容として扱う
+        em = re.match(r"&(?:#\d+|#x[0-9a-fA-F]+|[a-zA-Z][a-zA-Z0-9]*);", html[i:])
+        if em:
+            for ch in htmllib.unescape(em.group(0)):
+                toks.append(classify_char(ch))
+            i += em.end(); continue
+        toks.append(classify_char(html[i])); i += 1
     return toks
+
+
+def classify_char(ch):
+    if ch in OPS:
+        return ("glue", ch, OPS[ch])
+    if ch in GREEK:
+        return ("anchor2", GREEK[ch], ch)          # ギリシャ文字はアンカー
+    if ch in ASCII_OP or ch in GLUE_EXTRA or re.match(r"[A-Za-z]", ch):
+        return ("glue", ch, ch)                     # 演算子/数字/半角英字＝グルー
+    return ("text", ch)
 
 
 JP = re.compile(r"[ぁ-ゟァ-ヺー一-鿋々〆〤]")  # かな・漢字（・ は数式なので除外）
