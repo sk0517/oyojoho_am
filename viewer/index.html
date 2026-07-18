@@ -278,6 +278,14 @@
 <script src="katex/katex.min.js"></script>
 <script src="katex/auto-render.min.js"></script>
 <script>
+  // エスケープした上で、許可タグ(<u>,<sub>,<sup>,<strong>)と **太字** だけ復元
+  function richHTML(raw) {
+    return (raw || '')
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      .replace(/\*\*([^*]+?)\*\*/g, '<strong>$1</strong>')
+      .replace(/&lt;(\/?)(u|sub|sup)&gt;/g, '<$1$2>');
+  }
+
   function renderMath(el) {
     if (window.renderMathInElement) {
       try {
@@ -472,7 +480,7 @@
       <span>重要度 ${q.importance || ''}</span>
       ${q.tags ? `<span>タグ: ${q.tags}</span>` : ''}
     `;
-    qtext.textContent = q.question;
+    qtext.innerHTML = richHTML(q.question);
     renderMath(qtext);
 
     imagesEl.innerHTML = '';
@@ -506,10 +514,7 @@
 
   function showAnswer() {
     const { period, q } = currentQuestion();
-    let html = (q.explanation || '（解説なし）')
-      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
-      .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
-    answerBox.innerHTML = html;
+    answerBox.innerHTML = richHTML(q.explanation || '（解説なし）');
     renderMath(answerBox);
     answerBox.classList.add('show');
     revealBtn.disabled = true;
@@ -529,7 +534,9 @@
       listContainer.innerHTML = state.order.map((qIdx, pos) => {
         const q = period.questions[qIdx];
         const isSeen = !!seen[q.n];
-        const snippet = (q.question || '').replace(/\s+/g, ' ').slice(0, 70);
+        const snippet = (q.question || '')
+          .replace(/<\/?(u|sub|sup)>/g, '').replace(/\$/g, '')
+          .replace(/\s+/g, ' ').slice(0, 70);
         return `
           <div class="list-item" data-pos="${pos}">
             <div class="list-item-top">

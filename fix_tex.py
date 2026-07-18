@@ -21,7 +21,7 @@ OPS = {
     "／": "/", "＝": "=", "＜": "<", "＞": ">", "≦": r"\leq ", "≧": r"\geq ",
     "≤": r"\leq ", "≥": r"\geq ", "∪": r"\cup ", "∩": r"\cap ",
     "⊆": r"\subseteq ", "⊇": r"\supseteq ", "∈": r"\in ", "∉": r"\notin ",
-    "（": "(", "）": ")", "｛": r"\{", "｝": r"\}",
+    "（": "(", "）": ")", "｛": r"\{", "｝": r"\}", "{": r"\{", "}": r"\}",
     "←": r"\leftarrow ", "→": r"\rightarrow ", "≠": r"\neq ", "≒": r"\approx ",
     "≈": r"\approx ", "±": r"\pm ", "∞": r"\infty ", "√": r"\sqrt ",
 }
@@ -34,6 +34,24 @@ GLUE_EXTRA = set("0123456789. ")  # 数字/小数点/半角空白（全角空白
 def esc_text(s):
     # $ を含むリテラルは KaTeX 誤爆防止でエスケープ
     return s.replace("\\", "\\\\").replace("$", r"\$")
+
+
+def plain_text(frag):
+    """タグ除去・実体参照復元のみ（演算子変換や $ 化はしない）＝素のテキスト。"""
+    frag = re.sub(r"<[^>]+>", "", frag)
+    return htmllib.unescape(frag).strip()
+
+
+def _is_math_base(tok):
+    """直前トークンが下付き/上付きの『土台』になり得るか（土台なし＝ラベル）。"""
+    if tok is None:
+        return False
+    if tok[0] in ("anchor", "anchor2", "sup", "sub"):
+        return True
+    if tok[0] == "glue":
+        c = tok[1]
+        return bool(re.match(r"[A-Za-z0-9)]", c)) or c in "）】］｝}"
+    return False
 
 
 def tex_inline(frag):
@@ -85,12 +103,23 @@ def tokenize(html):
         m = re.match(r'<span[^>]*overline[^>]*>(.*?)</span>', html[i:], re.S)
         if m:
             toks.append(("anchor", r"\overline{" + tex_inline(m.group(1)) + "}")); i += m.end(); continue
+        m = re.match(r'<span[^>]*underline[^>]*>(.*?)</span>', html[i:], re.S)
+        if m:  # 下線 → <u>（数式ではなくテキスト装飾）
+            toks.append(("raw", "<u>" + plain_text(m.group(1)) + "</u>")); i += m.end(); continue
         m = re.match(r"<sup>(.*?)</sup>", html[i:], re.S)
         if m:
-            toks.append(("sup", "^{" + tex_inline(m.group(1)) + "}")); i += m.end(); continue
+            if _is_math_base(toks[-1] if toks else None):
+                toks.append(("sup", "^{" + tex_inline(m.group(1)) + "}"))
+            else:  # 土台なし＝テキストのラベル（例: 下線部 a〜d）
+                toks.append(("raw", "<sup>" + plain_text(m.group(1)) + "</sup>"))
+            i += m.end(); continue
         m = re.match(r"<sub>(.*?)</sub>", html[i:], re.S)
         if m:
-            toks.append(("sub", "_{" + tex_inline(m.group(1)) + "}")); i += m.end(); continue
+            if _is_math_base(toks[-1] if toks else None):
+                toks.append(("sub", "_{" + tex_inline(m.group(1)) + "}"))
+            else:
+                toks.append(("raw", "<sub>" + plain_text(m.group(1)) + "</sub>"))
+            i += m.end(); continue
         m = re.match(r"<i>(.*?)</i>", html[i:], re.S)
         if m:
             toks.append(("anchor", tex_inline(m.group(1)))); i += m.end(); continue
@@ -124,8 +153,15 @@ def orig_of(t):
     return t[1] if t[0] == "glue" else t[2] if t[0] == "anchor2" else ""
 
 
+def _vis(t):
+    """行内の可視テキスト（マーカー判定/日本語判定用）。"""
+    if t[0] in ("text", "raw"):
+        return t[1]
+    return orig_of(t)
+
+
 def _line_orig(line_toks):
-    return "".join(orig_of(t) if t[0] != "text" else t[1] for t in line_toks)
+    return "".join(_vis(t) for t in line_toks)
 
 
 def render_line(line_toks, force_choice_math=False):
@@ -149,13 +185,12 @@ def render_line(line_toks, force_choice_math=False):
         consumed = 0
         acc = ""
         for k, t in enumerate(line_toks):
-            piece = orig_of(t) if t[0] != "text" else t[1]
-            acc += piece
+            acc += _vis(t)
             consumed = k + 1
             if len(acc) >= len(label):
                 break
         body_toks = line_toks[consumed:]
-    rest_orig = "".join(orig_of(t) if t[0] != "text" else t[1] for t in body_toks)
+    rest_orig = "".join(_vis(t) for t in body_toks)
     has_anchor = any(t[0] in ("anchor", "anchor2", "sup", "sub") for t in body_toks)
     pure_formula = bool(body_toks) and not JP.search(rest_orig)
     # 純数式行 → 全体を 1 つの $...$（兄弟選択肢に数式があれば anchor 無しでも数式化）
@@ -177,6 +212,8 @@ def render_line(line_toks, force_choice_math=False):
     for t in body_toks:
         if t[0] == "text":
             flush(); out.append(esc_text(t[1]))
+        elif t[0] == "raw":
+            flush(); out.append(t[1])          # <u>/<sub> 等はそのまま出力
         else:
             run.append(t)
     flush()
